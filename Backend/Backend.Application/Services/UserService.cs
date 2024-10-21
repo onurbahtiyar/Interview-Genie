@@ -36,6 +36,7 @@ public class UserService : IUserService
         }
 
         var user = _mapper.Map<User>(registerDto);
+
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
 
         await _userRepository.AddAsync(user);
@@ -43,6 +44,7 @@ public class UserService : IUserService
 
         return _mapper.Map<UserDto>(user);
     }
+
 
     public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
     {

@@ -3,12 +3,14 @@ using Backend.Application.Services;
 using Backend.Infrastructure.Data;
 using Backend.Repository;
 using Backend.Security;
+using Backend.Configuration;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using AutoMapper;
+using Backend.Common.Helpers; // AutoMapper namespace'ini ekleyin
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +32,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IAESEncryptionService, AESEncryptionService>();
 
 // AutoMapper - Sadece API projesinde ekleyin
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // JWT Authentication
 var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
