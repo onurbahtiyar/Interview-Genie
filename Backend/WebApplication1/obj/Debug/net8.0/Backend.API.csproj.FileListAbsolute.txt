@@ -1,0 +1,200 @@
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.csproj.AssemblyReference.cache
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.AssemblyInfoInputs.cache
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.AssemblyInfo.cs
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.csproj.CoreCompileInputs.cache
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\appsettings.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.exe
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.deps.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.runtimeconfig.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Google.Protobuf.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Grpc.Core.Api.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Grpc.Net.Client.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Grpc.Net.Common.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.AmbientMetadata.Application.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Compliance.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.AutoActivation.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.ExceptionSummarization.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Features.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Http.Diagnostics.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Http.Resilience.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Resilience.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.ServiceDiscovery.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.ServiceDiscovery.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Telemetry.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Telemetry.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Npgsql.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Api.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Api.ProviderBuilderExtensions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Exporter.OpenTelemetryProtocol.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Extensions.Hosting.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Instrumentation.AspNetCore.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Instrumentation.Http.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Instrumentation.Runtime.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Polly.Core.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Polly.Extensions.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Polly.RateLimiting.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Application.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Common.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Configuration.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Domain.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Infrastructure.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Repository.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Security.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.ServiceDefaults.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Application.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Common.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Configuration.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.ServiceDefaults.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Domain.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Infrastructure.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Repository.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\bin\Debug\net8.0\Backend.Security.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.Backend.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.build.Backend.API.props
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Backend.API.props
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Backend.API.props
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\Backend.API.styles.css
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend..43CFF112.Up2Date
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\refint\Backend.API.dll
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.pdb
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.genruntimeconfig.cache
+C:\Users\cxoder\source\repos\Backend\WebApplication1\obj\Debug\net8.0\ref\Backend.API.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\appsettings.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.exe
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.deps.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.runtimeconfig.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.API.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Google.Protobuf.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Grpc.Core.Api.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Grpc.Net.Client.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Grpc.Net.Common.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.AmbientMetadata.Application.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Compliance.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Binder.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.AutoActivation.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Diagnostics.ExceptionSummarization.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Features.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Http.Diagnostics.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Http.Resilience.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.ObjectPool.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Resilience.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.ServiceDiscovery.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.ServiceDiscovery.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Telemetry.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.Extensions.Telemetry.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Npgsql.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Api.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Api.ProviderBuilderExtensions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Exporter.OpenTelemetryProtocol.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Extensions.Hosting.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Instrumentation.AspNetCore.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Instrumentation.Http.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\OpenTelemetry.Instrumentation.Runtime.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Polly.Core.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Polly.Extensions.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Polly.RateLimiting.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Application.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Common.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Configuration.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Domain.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Infrastructure.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Repository.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Security.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.ServiceDefaults.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Application.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Common.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Configuration.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.ServiceDefaults.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Domain.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Infrastructure.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Repository.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\bin\Debug\net8.0\Backend.Security.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.csproj.AssemblyReference.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.AssemblyInfoInputs.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.AssemblyInfo.cs
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.csproj.CoreCompileInputs.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.Backend.API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.build.Backend.API.props
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Backend.API.props
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Backend.API.props
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\scopedcss\bundle\Backend.API.styles.css
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend..43CFF112.Up2Date
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\refint\Backend.API.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\Backend.API.genruntimeconfig.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\WebApplication1\obj\Debug\net8.0\ref\Backend.API.dll

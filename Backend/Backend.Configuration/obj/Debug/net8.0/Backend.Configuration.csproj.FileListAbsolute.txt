@@ -1,0 +1,30 @@
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Configuration.deps.json
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Configuration.dll
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Configuration.pdb
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Security.dll
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Security.pdb
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.csproj.AssemblyReference.cache
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.AssemblyInfoInputs.cache
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.AssemblyInfo.cs
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.csproj.CoreCompileInputs.cache
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend..77890674.Up2Date
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.dll
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\refint\Backend.Configuration.dll
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.pdb
+C:\Users\cxoder\source\repos\Backend\Backend.Configuration\obj\Debug\net8.0\ref\Backend.Configuration.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Configuration.deps.json
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Configuration.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Configuration.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Security.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\bin\Debug\net8.0\Backend.Security.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.csproj.AssemblyReference.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.AssemblyInfoInputs.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.AssemblyInfo.cs
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.csproj.CoreCompileInputs.cache
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend..77890674.Up2Date
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\refint\Backend.Configuration.dll
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\Backend.Configuration.pdb
+C:\Users\cxoder\Desktop\Interview Genie\Backend\Backend.Configuration\obj\Debug\net8.0\ref\Backend.Configuration.dll
