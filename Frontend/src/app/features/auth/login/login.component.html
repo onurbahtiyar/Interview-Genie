@@ -1,0 +1,74 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-gray-800 dark:to-gray-900">
+  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden w-full max-w-md">
+    <div class="p-8">
+      <!-- Logo veya Başlık -->
+      <div class="flex justify-center">
+        <img src="assets/logo.png" alt="Logo" class="h-48">
+      </div>
+      
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+        <!-- Kullanıcı Adı -->
+        <div class="mb-4">
+          <label for="loginUsername" class="block text-gray-700 dark:text-gray-300 mb-2">Kullanıcı Adı</label>
+          <input
+            id="loginUsername"
+            type="text"
+            [(ngModel)]="loginData.username"
+            name="username"
+            required
+            #loginUsername="ngModel"
+            class="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            placeholder="Kullanıcı Adınızı Girin"
+          />
+          <div *ngIf="loginUsername.invalid && (loginUsername.dirty || loginUsername.touched)" class="text-red-500 text-sm mt-1">
+            Kullanıcı adı gerekli.
+          </div>
+        </div>
+
+        <!-- Şifre -->
+        <div class="mb-6">
+          <label for="loginPassword" class="block text-gray-700 dark:text-gray-300 mb-2">Şifre</label>
+          <input
+            id="loginPassword"
+            type="password"
+            [(ngModel)]="loginData.password"
+            name="password"
+            required
+            #loginPassword="ngModel"
+            class="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            placeholder="Şifrenizi Girin"
+          />
+          <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)" class="text-red-500 text-sm mt-1">
+            Şifre gerekli.
+          </div>
+        </div>
+
+        <!-- Giriş Butonu -->
+        <button
+          type="submit"
+          [disabled]="loginForm.invalid"
+          class="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          Giriş Yap
+        </button>
+      </form>
+
+      <!-- Kayıt Ol -->
+      <div class="flex justify-between mt-4">
+        <a routerLink="/auth/register" class="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
+          Hesabınız yok mu? Kayıt Ol
+        </a>
+      </div>
+
+      <!-- Hata Mesajı -->
+      <div *ngIf="errorMessage" class="mt-4 text-center text-red-500">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <!-- Dekoratif Elemanlar -->
+    <div class="bg-indigo-600 dark:bg-gray-700 p-4 text-center">
+      <p class="text-white text-sm">&copy; 2024 BTK. Tüm hakları saklıdır.</p>
+    </div>
+  </div>
+</div>

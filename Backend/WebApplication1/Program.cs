@@ -57,6 +57,17 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// CORS Configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 
 // Swagger Configuration
@@ -108,6 +119,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();
