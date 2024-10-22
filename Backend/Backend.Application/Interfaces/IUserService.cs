@@ -1,9 +1,10 @@
-﻿using Backend.Application.DTOs;
+﻿using Backend.Common.Results;
+using Backend.Domain.DTOs;
 
 namespace Backend.Application.Interfaces;
 
 public interface IUserService
 {
-    Task<UserDto> RegisterAsync(RegisterDto registerDto);
-    Task<LoginResponseDto> LoginAsync(LoginDto loginDto);
+    Task<IDataResult<UserDto>> RegisterAsync(RegisterDto registerDto);
+    Task<IDataResult<LoginResponseDto>> LoginAsync(LoginDto loginDto);
 }

@@ -14,6 +14,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Backend.Common\Backend.Common.csproj" />
 		<ProjectReference Include="..\Backend.Repository\Backend.Repository.csproj" />
 		<ProjectReference Include="..\Backend.Security\Backend.Security.csproj" />
 	</ItemGroup>

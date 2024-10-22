@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Backend.Application.DTOs;
+using Backend.Domain.DTOs;
 using Backend.Domain.Entities;
 
 namespace Backend.Common.Helpers
