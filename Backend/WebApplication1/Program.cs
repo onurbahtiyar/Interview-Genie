@@ -12,7 +12,8 @@ using System.Text;
 using AutoMapper;
 using Backend.Common.Helpers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization; // AutoMapper namespace'ini ekleyin
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Backend.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -127,6 +128,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors("CorsPolicy");
 

@@ -10,10 +10,12 @@ namespace Backend.API.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IUserService _userService;
+    private readonly ILogger<AuthController> _logger;
 
-    public AuthController(IUserService userService)
+    public AuthController(IUserService userService, ILogger<AuthController> logger)
     {
         _userService = userService;
+        _logger = logger;
     }
 
     /// <summary>
@@ -28,11 +30,12 @@ public class AuthController : ControllerBase
         try
         {
             var user = await _userService.RegisterAsync(registerDto);
-            return Ok(new { message = "Registration successful", user });
+            return Ok(new { message = "Kayıt başarılı.", user });
         }
         catch (Exception ex)
         {
-            return BadRequest(new { message = ex.Message });
+            _logger.LogError(ex, "Kullanıcı kaydı sırasında hata oluştu.");
+            return StatusCode(500, new { message = "Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyiniz." });
         }
     }
 
@@ -52,7 +55,8 @@ public class AuthController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Unauthorized(new { message = ex.Message });
+            _logger.LogError(ex, "Kullanıcı girişi sırasında hata oluştu.");
+            return StatusCode(500, new { message = "Giriş sırasında bir hata oluştu. Lütfen tekrar deneyiniz." });
         }
     }
 }
