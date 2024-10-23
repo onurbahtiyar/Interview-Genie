@@ -20,14 +20,17 @@ public class UserService : IUserService
     private readonly IAESEncryptionService _aesEncryptionService;
     private readonly IMapper _mapper;
 
-    public UserService(IRepository<User> userRepository, IOptions<JwtSettings> jwtSettings, IAESEncryptionService aesEncryptionService, IMapper mapper)
+    public UserService(
+        IRepository<User> userRepository,
+        IOptions<JwtSettings> jwtSettings,
+        IAESEncryptionService aesEncryptionService,
+        IMapper mapper)
     {
         _userRepository = userRepository;
         _jwtSettings = jwtSettings.Value;
         _aesEncryptionService = aesEncryptionService;
         _mapper = mapper;
     }
-
     public async Task<IDataResult<UserDto>> RegisterAsync(RegisterDto registerDto)
     {
         var existingUser = await _userRepository.GetAsync(u => u.Username == registerDto.Username);
@@ -38,6 +41,7 @@ public class UserService : IUserService
 
         var user = _mapper.Map<User>(registerDto);
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(registerDto.Password);
+        user.Id = Guid.NewGuid();
 
         await _userRepository.AddAsync(user);
         await _userRepository.SaveChangesAsync();
@@ -70,7 +74,7 @@ public class UserService : IUserService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Username),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("id", user.Id.ToString())
+            new Claim(ClaimTypes.Name, user.Id.ToString())
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Secret));

@@ -14,6 +14,7 @@ using Backend.Common.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Backend.API.Middlewares;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,9 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 // Application Services
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IInterviewService, InterviewService>();
+
+builder.Services.AddHttpClient<IGeminiService, GeminiService>();
 
 // Security Services
 builder.Services.AddSingleton<IAESEncryptionService, AESEncryptionService>();
@@ -56,7 +60,8 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtSettings.Issuer,
         ValidAudience = jwtSettings.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(key)
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        NameClaimType = ClaimTypes.Name
     };
 });
 
@@ -129,7 +134,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+#if !DEBUG
 app.UseMiddleware<ExceptionMiddleware>();
+#endif
 
 app.UseCors("CorsPolicy");
 

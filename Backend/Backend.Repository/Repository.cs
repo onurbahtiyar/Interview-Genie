@@ -25,9 +25,19 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet.Remove(entity);
     }
 
-    public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)
+    public async Task<T> GetAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includes)
     {
-        return await _dbSet.FirstOrDefaultAsync(predicate);
+        IQueryable<T> query = _dbSet;
+
+        if (includes != null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
+
+        return await query.FirstOrDefaultAsync(predicate);
     }
 
     public async Task<IEnumerable<T>> GetAllAsync()
