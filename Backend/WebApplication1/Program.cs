@@ -10,7 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using AutoMapper;
-using Backend.Common.Helpers; // AutoMapper namespace'ini ekleyin
+using Backend.Common.Helpers;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization; // AutoMapper namespace'ini ekleyin
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -68,7 +70,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser()
+        .Build();
+    options.Filters.Add(new AuthorizeFilter(policy));
+});
 
 // Swagger Configuration
 builder.Services.AddEndpointsApiExplorer();

@@ -1,5 +1,6 @@
 ﻿using Backend.Application.Interfaces;
 using Backend.Domain.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.API.Controllers;
@@ -20,6 +21,7 @@ public class AuthController : ControllerBase
     /// </summary>
     /// <param name="registerDto">Kayıt bilgileri</param>
     /// <returns>Yeni kullanıcı bilgileri</returns>
+    [AllowAnonymous]
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
     {
@@ -39,6 +41,7 @@ public class AuthController : ControllerBase
     /// </summary>
     /// <param name="loginDto">Giriş bilgileri</param>
     /// <returns>JWT Token ve kullanıcı bilgileri</returns>
+    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
     {
