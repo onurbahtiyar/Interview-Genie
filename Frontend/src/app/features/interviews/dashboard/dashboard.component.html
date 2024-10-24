@@ -1,0 +1,75 @@
+<div class="dashboard-container p-6 min-h-screen">
+  <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Dashboard</h1>
+
+  <div class="create-new-session mb-8 flex justify-center">
+    <button (click)="navigateToCreateInterview()" class="btn btn-primary bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow">
+      Yeni Süreç Oluştur
+    </button>
+  </div>
+
+  <div class="summary-section mb-8">
+    <h2 class="text-2xl font-semibold mb-4 text-blue-600">Genel Bilgiler</h2>
+    <div class="summary-cards grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="card bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-medium text-gray-700">Toplam Süreç</h3>
+        <p class="mt-2 text-2xl font-bold text-blue-500">{{ summary.totalSessions }}</p>
+      </div>
+      <div class="card bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-medium text-gray-700">Aktif Süreç</h3>
+        <p class="mt-2 text-2xl font-bold text-green-500">{{ summary.activeSessions }}</p>
+      </div>
+      <div class="card bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-medium text-gray-700">Tamamlanan Süreç</h3>
+        <p class="mt-2 text-2xl font-bold text-yellow-500">{{ summary.completedSessions }}</p>
+      </div>
+      <div class="card bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow">
+        <h3 class="text-lg font-medium text-gray-700">Ortalama Doğru Cevap</h3>
+        <p class="mt-2 text-2xl font-bold text-red-500">{{ summary.averageCorrectAnswers | number: '1.2-2' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="past-sessions">
+    <h2 class="text-2xl font-semibold mb-4 text-blue-600">Geçmiş Süreçler</h2>
+    <div class="overflow-x-auto">
+      <table *ngIf="pastSessions.length > 0" class="min-w-full bg-white rounded-lg shadow-md">
+        <thead>
+          <tr>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Süreç ID</th>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Şirket Adı</th>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Başlangıç Tarihi</th>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Bitiş Tarihi</th>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Toplam Soru</th>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Doğru Cevap</th>
+            <th class="py-3 px-6 bg-blue-500 text-left text-xs font-medium text-white uppercase tracking-wider">Yanlış Cevap</th>
+            <th class="py-3 px-6 bg-blue-500 text-center text-xs font-medium text-white uppercase tracking-wider">İşlemler</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let session of pastSessions" class="border-b hover:bg-gray-50">
+            <td class="py-4 px-6 text-sm text-gray-700">{{ session.id }}</td>
+            <td class="py-4 px-6 text-sm text-gray-700">{{ session.companyName }}</td>
+            <td class="py-4 px-6 text-sm text-gray-700">{{ session.startedAt | date:'short' }}</td>
+            <td class="py-4 px-6 text-sm text-gray-700">{{ session.endedAt | date:'short' }}</td>
+            <td class="py-4 px-6 text-sm text-gray-700">{{ session.totalQuestions }}</td>
+            <td class="py-4 px-6 text-sm text-green-500">{{ session.correctAnswers }}</td>
+            <td class="py-4 px-6 text-sm text-red-500">{{ session.incorrectAnswers }}</td>
+            <td class="py-4 px-6 text-center">
+              <button (click)="viewDetails(session.id)" class="btn btn-secondary bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-1 px-3 rounded">
+                Detaylar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="pastSessions.length === 0" class="text-center text-gray-500 mt-4">Hiç geçmiş süreç bulunmamaktadır.</p>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading text-center mt-6">
+    <p class="text-blue-500">Yükleniyor...</p>
+  </div>
+  <div *ngIf="error" class="error text-center mt-6 text-red-500">
+    {{ error }}
+  </div>
+</div>

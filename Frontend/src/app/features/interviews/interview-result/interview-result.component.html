@@ -1,0 +1,27 @@
+<div class="result-container max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+  <h2 class="text-3xl font-semibold mb-8 text-blue-700 text-center">Görüşme Sonuçları</h2>
+
+  <div *ngIf="result" class="space-y-4">
+    <div class="result-item flex justify-between">
+      <span class="text-lg font-medium text-gray-700">Toplam Soru:</span>
+      <span class="text-lg font-semibold text-blue-500">{{ result.totalQuestions }}</span>
+    </div>
+    <div class="result-item flex justify-between">
+      <span class="text-lg font-medium text-gray-700">Doğru Cevap:</span>
+      <span class="text-lg font-semibold text-green-500">{{ result.correctAnswers }}</span>
+    </div>
+    <div class="result-item flex justify-between">
+      <span class="text-lg font-medium text-gray-700">Yanlış Cevap:</span>
+      <span class="text-lg font-semibold text-red-500">{{ result.incorrectAnswers }}</span>
+    </div>
+  </div>
+
+  <div class="button-container mt-8">
+    <button 
+      (click)="navigateToDashboard()" 
+      class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md shadow transition-colors duration-200"
+    >
+      Dashboard'a Dön
+    </button>
+  </div>
+</div>

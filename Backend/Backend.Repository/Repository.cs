@@ -40,9 +40,33 @@ public class Repository<T> : IRepository<T> where T : class
         return await query.FirstOrDefaultAsync(predicate);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, params Expression<Func<T, object>>[] includes)
     {
-        return await _dbSet.ToListAsync();
+        IQueryable<T> query = _dbSet;
+
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
+        if (includes != null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
+
+        return await query.ToListAsync();
+    }
+
+    public async Task<int> CountAsync(Expression<Func<T, bool>>? filter = null)
+    {
+        if (filter != null)
+        {
+            return await _dbSet.CountAsync(filter);
+        }
+        return await _dbSet.CountAsync();
     }
 
     public void Update(T entity)

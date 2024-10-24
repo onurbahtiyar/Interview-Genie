@@ -1,0 +1,131 @@
+<div class="max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+  <h2 class="text-3xl font-semibold mb-8 text-blue-700 text-center">Yeni Görüşme Oluştur</h2>
+  <form [formGroup]="interviewForm" (ngSubmit)="onSubmit()" class="space-y-6">
+    
+    <!-- Şirket Adı -->
+    <div>
+      <label for="companyName" class="block text-gray-700 font-medium">Şirket Adı</label>
+      <input 
+        id="companyName" 
+        type="text" 
+        formControlName="companyName" 
+        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Şirket adını girin"
+      />
+      <div *ngIf="interviewForm.get('companyName')?.invalid && interviewForm.get('companyName')?.touched" class="text-red-500 text-sm mt-1">
+        Şirket adı gereklidir.
+      </div>
+    </div>
+
+    <!-- Sektör -->
+    <div>
+      <label for="industry" class="block text-gray-700 font-medium">Sektör</label>
+      <input 
+        id="industry" 
+        type="text" 
+        formControlName="industry" 
+        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Sektör bilgisi girin"
+      />
+      <div *ngIf="interviewForm.get('industry')?.invalid && interviewForm.get('industry')?.touched" class="text-red-500 text-sm mt-1">
+        Sektör gereklidir.
+      </div>
+    </div>
+
+    <!-- Konum -->
+    <div>
+      <label for="location" class="block text-gray-700 font-medium">Konum</label>
+      <input 
+        id="location" 
+        type="text" 
+        formControlName="location" 
+        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Konum bilgisi girin"
+      />
+      <div *ngIf="interviewForm.get('location')?.invalid && interviewForm.get('location')?.touched" class="text-red-500 text-sm mt-1">
+        Konum gereklidir.
+      </div>
+    </div>
+
+    <!-- Yetenekler -->
+    <div>
+      <label class="block text-gray-700 font-medium mb-2">Yetenekler</label>
+      <div formArrayName="skills" class="space-y-2">
+        <div *ngFor="let skill of skills.controls; let i = index" class="flex items-center">
+          <input 
+            type="text" 
+            [formControlName]="i" 
+            class="flex-1 border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500" 
+            placeholder="Yetenek girin"
+          />
+          <button 
+            type="button" 
+            (click)="removeSkill(i)" 
+            class="ml-2 text-red-500 hover:text-red-700 focus:outline-none"
+            aria-label="Yetenek sil"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <button 
+        type="button" 
+        (click)="addSkill()" 
+        class="mt-2 text-blue-500 hover:text-blue-700 flex items-center"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Yetenek Ekle
+      </button>
+    </div>
+
+    <!-- Açıklama -->
+    <div>
+      <label for="description" class="block text-gray-700 font-medium">Açıklama</label>
+      <textarea 
+        id="description" 
+        formControlName="description" 
+        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Görüşme açıklaması girin"
+        rows="4"
+      ></textarea>
+      <div *ngIf="interviewForm.get('description')?.invalid && interviewForm.get('description')?.touched" class="text-red-500 text-sm mt-1">
+        Açıklama gereklidir.
+      </div>
+    </div>
+
+    <!-- Dil -->
+    <div>
+      <label for="language" class="block text-gray-700 font-medium">Dil</label>
+      <input 
+        id="language" 
+        type="text" 
+        formControlName="language" 
+        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Dil bilgisi girin"
+      />
+      <div *ngIf="interviewForm.get('language')?.invalid && interviewForm.get('language')?.touched" class="text-red-500 text-sm mt-1">
+        Dil gereklidir.
+      </div>
+    </div>
+
+    <!-- Hata Mesajı -->
+    <div *ngIf="error" class="text-red-500 text-center">
+      {{ error }}
+    </div>
+
+    <!-- Gönder Butonu -->
+    <div class="text-center">
+      <button 
+        type="submit" 
+        [disabled]="isSubmitting || interviewForm.invalid" 
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md shadow"
+      >
+        {{ isSubmitting ? 'Oluşturuluyor...' : 'Oluştur' }}
+      </button>
+    </div>
+  </form>
+</div>

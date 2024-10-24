@@ -24,4 +24,8 @@ export class AuthService {
     return this.http.post<IDataResult<LoginResponseDto>>(`${this.apiUrl}/auth/login`, loginData);
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
 }

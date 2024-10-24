@@ -1,5 +1,7 @@
 ﻿using Backend.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System;
 
 namespace Backend.Infrastructure.Data
 {
@@ -11,13 +13,39 @@ namespace Backend.Infrastructure.Data
         public DbSet<InterviewQuestion> InterviewQuestions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
+            : base(options)
         {
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // Tüm DateTime özelliklerine UTC ValueConverter uygulayın
+            var dateTimeConverter = new ValueConverter<DateTime, DateTime>(
+                v => v, // Kaydederken
+                v => DateTime.SpecifyKind(v, DateTimeKind.Utc)); // Okurken
+
+            var nullableDateTimeConverter = new ValueConverter<DateTime?, DateTime?>(
+                v => v, // Kaydederken
+                v => v.HasValue ? DateTime.SpecifyKind(v.Value, DateTimeKind.Utc) : v); // Okurken
+
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(DateTime))
+                    {
+                        property.SetValueConverter(dateTimeConverter);
+                    }
+                    else if (property.ClrType == typeof(DateTime?))
+                    {
+                        property.SetValueConverter(nullableDateTimeConverter);
+                    }
+                }
+            }
+
+            // Diğer entity ayarları...
 
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<CompanyInfo>().ToTable("CompanyInfo");
@@ -37,6 +65,26 @@ namespace Backend.Infrastructure.Data
                 .WithOne(q => q.InterviewSession)
                 .HasForeignKey(q => q.InterviewSessionId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<InterviewSession>(entity =>
+            {
+                entity.Property(e => e.StartedAt)
+                    .HasColumnType("timestamp with time zone")
+                    .HasDefaultValueSql("now() at time zone 'utc'");
+
+                entity.Property(e => e.EndedAt)
+                    .HasColumnType("timestamp with time zone");
+            });
+
+            modelBuilder.Entity<InterviewQuestion>(entity =>
+            {
+                entity.Property(e => e.AskedAt)
+                    .HasColumnType("timestamp with time zone")
+                    .HasDefaultValueSql("now() at time zone 'utc'");
+
+                entity.Property(e => e.AnsweredAt)
+                    .HasColumnType("timestamp with time zone");
+            });
 
             modelBuilder.Entity<InterviewQuestion>()
                 .Property(q => q.QuestionType)

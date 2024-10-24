@@ -2,10 +2,6 @@
 using Backend.Domain.DTOs;
 using Backend.Domain.Entities;
 using Backend.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Backend.Application.Services
 {
@@ -48,7 +44,8 @@ namespace Backend.Application.Services
                 CompanyInfoId = companyInfo.Id,
                 CompanyInfo = companyInfo,
                 IsActive = true,
-                Questions = new List<InterviewQuestion>()
+                Questions = new List<InterviewQuestion>(),
+                StartedAt = DateTime.UtcNow
             };
 
             await _interviewRepository.AddAsync(interviewSession);
@@ -66,7 +63,8 @@ namespace Backend.Application.Services
                     QuestionType = question.QuestionType,
                     Options = question.Options,
                     CorrectAnswer = question.CorrectAnswer,
-                    AskedAt = DateTime.UtcNow
+                    AskedAt = DateTime.UtcNow,
+                    Topic = question.Topic
                 };
                 await _questionRepository.AddAsync(interviewQuestion);
                 interviewSession.Questions.Add(interviewQuestion);
@@ -91,7 +89,6 @@ namespace Backend.Application.Services
             if (nextQuestion == null)
                 throw new Exception("No more questions available.");
 
-            // Belirli bir soruyu 'asked' olarak işaretleme
             nextQuestion.AskedAt = DateTime.UtcNow;
             _questionRepository.Update(nextQuestion);
             await _interviewRepository.SaveChangesAsync();
@@ -179,5 +176,82 @@ namespace Backend.Application.Services
                 IncorrectAnswers = incorrect
             };
         }
+
+        public async Task<MainPageDto> GetMainPageDataAsync(Guid userId)
+        {
+            // Geçmiş süreçleri (bitti olanlar)
+            var pastSessions = await _interviewRepository.GetAllAsync(
+                s => s.UserId == userId && !s.IsActive,
+                s => s.CompanyInfo,
+                s => s.Questions
+            );
+
+            var sessionDtos = pastSessions.Select(s => new InterviewSessionDto
+            {
+                Id = s.Id,
+                UserId = s.UserId,
+                CompanyName = s.CompanyInfo.CompanyName,
+                IsActive = s.IsActive,
+                StartedAt = s.StartedAt,
+                EndedAt = s.EndedAt,
+                TotalQuestions = s.Questions.Count,
+                CorrectAnswers = s.Questions.Count(q => q.IsCorrect == true),
+                IncorrectAnswers = s.Questions.Count(q => q.IsCorrect == false)
+            }).ToList();
+
+            // Özet istatistikler
+            var totalSessions = pastSessions.Count();
+            var activeSessions = await _interviewRepository.CountAsync(s => s.UserId == userId && s.IsActive);
+            var completedSessions = totalSessions;
+            var averageCorrectAnswers = totalSessions > 0 ? pastSessions.Average(s => s.Questions.Count(q => q.IsCorrect == true)) : 0;
+
+            var summary = new InterviewSummaryDto
+            {
+                TotalSessions = totalSessions,
+                ActiveSessions = activeSessions,
+                CompletedSessions = completedSessions,
+                AverageCorrectAnswers = averageCorrectAnswers
+            };
+
+            return new MainPageDto
+            {
+                PastSessions = sessionDtos,
+                Summary = summary
+            };
+        }
+
+        public async Task<InterviewDetailsDto> GetInterviewDetailsAsync(Guid interviewId)
+        {
+            var interview = await _interviewRepository.GetAsync(
+                x => x.Id == interviewId,
+                x => x.Questions,
+                x => x.CompanyInfo
+            );
+
+            if (interview == null)
+                throw new Exception("Interview session not found.");
+
+            var questionDetails = interview.Questions.Select(q => new InterviewQuestionDetailDto
+            {
+                QuestionId = q.Id,
+                QuestionText = q.QuestionText,
+                QuestionType = q.QuestionType.ToString(),
+                Options = q.Options,
+                UserAnswer = q.UserAnswer,
+                CorrectAnswer = q.CorrectAnswer,
+                IsCorrect = q.IsCorrect ?? false,
+                Topic = q.Topic
+            }).ToList();
+
+            return new InterviewDetailsDto
+            {
+                SessionId = interview.Id,
+                StartedAt = interview.StartedAt,
+                EndedAt = interview.EndedAt,
+                Questions = questionDetails
+            };
+        }
+
+
     }
 }

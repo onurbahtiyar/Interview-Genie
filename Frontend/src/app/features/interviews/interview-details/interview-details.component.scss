@@ -1,0 +1,36 @@
+.interview-details-container {
+  @apply bg-gray-100;
+}
+
+.interview-details {
+  @apply bg-white p-6 rounded-lg shadow-lg;
+}
+
+.charts {
+  @apply bg-white p-6 rounded-lg shadow-lg;
+}
+
+.chart-container {
+  @apply p-4 rounded-lg shadow;
+}
+
+.questions-analysis {
+  @apply bg-white p-6 rounded-lg shadow-lg;
+}
+
+table {
+  @apply min-w-full;
+}
+
+th,
+td {
+  @apply py-3 px-6;
+}
+
+th {
+  @apply bg-blue-500 text-white;
+}
+
+tr:hover {
+  @apply bg-gray-50;
+}

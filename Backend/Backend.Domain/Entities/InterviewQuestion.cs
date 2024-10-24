@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Backend.Domain.Entities
 {
-    public enum QuestionType
-    {
-        MultipleChoice,
-        OpenEnded
-    }
+        public enum QuestionType
+        {
+            MultipleChoice,
+            OpenEnded
+        }
 
     public class InterviewQuestion
     {
@@ -18,13 +18,12 @@ namespace Backend.Domain.Entities
         public string QuestionText { get; set; }
         public QuestionType QuestionType { get; set; }
         public List<string> Options { get; set; } = new List<string>();
+        public string Topic { get; set; }
         public string CorrectAnswer { get; set; }
         public string UserAnswer { get; set; }
         public bool? IsCorrect { get; set; }
         public DateTime? AskedAt { get; set; }
         public DateTime? AnsweredAt { get; set; }
-
-        // Navigation Property
         public InterviewSession InterviewSession { get; set; }
     }
 }

@@ -46,5 +46,7 @@ namespace Backend.Domain.DTOs
 
         [JsonPropertyName("correctAnswer")]
         public string CorrectAnswer { get; set; }
+        [JsonPropertyName("topic")]
+        public string Topic { get; set; }
     }
 }

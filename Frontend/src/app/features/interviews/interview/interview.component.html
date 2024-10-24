@@ -1,0 +1,58 @@
+<div class="interview-container max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+  <h2 class="text-3xl font-semibold mb-8 text-blue-700 text-center">Görüşme Sürüyor</h2>
+
+  <!-- Yükleniyor -->
+  <div *ngIf="isLoading" class="text-center">
+    <p class="text-blue-500 font-medium">Yükleniyor...</p>
+  </div>
+
+  <!-- Hata Mesajı -->
+  <div *ngIf="error" class="text-red-500 text-center mb-4">
+    {{ error }}
+  </div>
+
+  <!-- Soru Gösterimi -->
+  <div *ngIf="currentQuestion && !isLoading" class="space-y-6">
+    <div class="question-text">
+      <p class="text-xl font-medium">{{ currentQuestion.questionText }}</p>
+    </div>
+
+    <!-- Çoktan Seçmeli Soru -->
+    <div *ngIf="currentQuestion.questionType === 'MultipleChoice' && currentQuestion.options.length > 0" class="multiple-choice">
+      <div *ngFor="let option of currentQuestion.options; let  i = index" class="flex items-center mb-3">
+        <input 
+          type="radio" 
+          name="option" 
+          [value]="option" 
+          [(ngModel)]="selectedOption" 
+          class="form-radio h-5 w-5 text-blue-600 focus:ring-blue-500" 
+          id="{{ 'option' + i }}"
+        />
+        <label for="{{ 'option' + i }}" class="ml-3 block text-gray-700">
+          {{ option }}
+        </label>
+      </div>
+    </div>
+
+    <!-- Açık Uçlu Soru -->
+    <div *ngIf="currentQuestion.questionType === 'OpenEnded'" class="open-ended">
+      <textarea 
+        [(ngModel)]="answer" 
+        class="mt-1 block w-full border border-gray-300 rounded-md p-3 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Cevabınızı buraya yazın..."
+        rows="5"
+      ></textarea>
+    </div>
+
+    <!-- Cevap Gönder Butonu -->
+    <div class="submit-button">
+      <button 
+        (click)="submitAnswer()" 
+        [disabled]="isSubmitting || !isAnswerValid()" 
+        class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-md shadow transition-opacity duration-200 disabled:opacity-50"
+      >
+        {{ isSubmitting ? 'Gönderiliyor...' : 'Cevabı Gönder' }}
+      </button>
+    </div>
+  </div>
+</div>

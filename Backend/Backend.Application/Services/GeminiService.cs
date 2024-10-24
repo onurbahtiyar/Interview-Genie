@@ -24,38 +24,39 @@ namespace Backend.Application.Services
 
         public async Task<List<InterviewQuestion>> GenerateInterviewQuestionsAsync(CreateInterviewRequest companyInfo)
         {
-            var prompt = $"Based on the following company information, generate a list of potential interview questions that a candidate might encounter. " +
-                         $"The questions should be aligned with the skills required for the job and company description. Please generate the questions in {companyInfo.Language}. " +
-                         $"Company Info: " +
-                         $"Company Name: {companyInfo.CompanyName}, " +
-                         $"Industry: {companyInfo.Industry}, " +
-                         $"Location: {companyInfo.Location}, " +
-                         $"Required Skills: {string.Join(", ", companyInfo.Skills)}, " +
-                         $"Job Description: {companyInfo.Description}. " +
-                         $"For multiple-choice questions, provide options without explanations and indicate the correct answer by specifying exactly one option as the correct answer. " +
-                         $"Format the questions in JSON with the following structure:\n\n" +
+            var prompt = $"Aşağıdaki gerekli yetenekler ve iş tanımına dayanarak, adayın karşılaşabileceği potansiyel görüşme sorularının bir listesini oluştur. " +
+                         $"Her soru, verilen yetenekler listesinden bir spesifik yeteneğe odaklanmalıdır. " +
+                         $"Her soru için, 'topic' alanını sorunun ilgili olduğu yeteneğe ayarla (örneğin, soru .NET Core hakkındaysa, topic '.NET Core' olmalı). " +
+                         $"Şirket hakkında sorular dahil etme. " +
+                         $"{companyInfo.Language} dilinde soruları oluştur. " +
+                         $"Gerekli Yetenekler: {string.Join(", ", companyInfo.Skills)}. " +
+                         $"İş Tanımı: {companyInfo.Description}. " +
+                         $"Çoktan seçmeli sorular için, seçenekleri açıklama olmadan ver ve doğru cevabı belirterek sadece bir seçeneği doğru cevap olarak işaretle. " +
+                         $"Soruları aşağıdaki yapıya sahip JSON formatında hazırla:\n\n" +
                          "{\n" +
                          "  \"questions\": [\n" +
                          "    {\n" +
-                         "      \"questionText\": \"Question related to C# layered architecture or a relevant topic\",\n" +
+                         "      \"questionText\": \"Gerekli yeteneklerden biriyle ilgili bir soru, örneğin .NET Core mimarisi veya ilgili bir konu\",\n" +
                          "      \"questionType\": \"MultipleChoice\",\n" +
-                         "      \"options\": [\"Blazor\", \"React\", \"Angular\", \"Vue\"],\n" +
-                         "      \"correctAnswer\": \"Blazor\"\n" +
+                         "      \"options\": [\"Seçenek1\", \"Seçenek2\", \"Seçenek3\", \"Seçenek4\"],\n" +
+                         "      \"correctAnswer\": \"Seçenek1\",\n" +
+                         "      \"topic\": \".NET Core\"\n" +
                          "    },\n" +
                          "    {\n" +
-                         "      \"questionText\": \"Question related to Angular, Power BI or other mentioned skills\",\n" +
+                         "      \"questionText\": \"Farklı bir gerekli yetenekle ilgili başka bir soru, örneğin Angular bileşenleri\",\n" +
                          "      \"questionType\": \"MultipleChoice\",\n" +
-                         "      \"options\": [\"Option1\", \"Option2\", \"Option3\", \"Option4\"],\n" +
-                         "      \"correctAnswer\": \"Option1\"\n" +
+                         "      \"options\": [\"Seçenek1\", \"Seçenek2\", \"Seçenek3\", \"Seçenek4\"],\n" +
+                         "      \"correctAnswer\": \"Seçenek2\",\n" +
+                         "      \"topic\": \"Angular\"\n" +
                          "    },\n" +
                          "    {\n" +
-                         "      \"questionText\": \"Open-ended question about a specific job requirement or challenge from the job description\",\n" +
+                         "      \"questionText\": \"İş tanımındaki spesifik bir gerekli yetenek veya zorluk hakkında açık uçlu bir soru\",\n" +
                          "      \"questionType\": \"OpenEnded\",\n" +
-                         "      \"correctAnswer\": \"Expected answer related to job role or skillset\"\n" +
+                         "      \"correctAnswer\": \"Yeteneğe veya role ilişkin beklenen cevap\",\n" +
+                         "      \"topic\": \"Yetenek İsmi\"\n" +
                          "    }\n" +
                          "  ]\n" +
                          "}";
-
 
 
             var requestBody = new
@@ -93,7 +94,8 @@ namespace Backend.Application.Services
                                             type = "ARRAY",
                                             items = new { type = "STRING" }
                                         },
-                                        correctAnswer = new { type = "STRING" }
+                                        correctAnswer = new { type = "STRING" },
+                                        topic = new { type = "STRING" }
                                     },
                                     required = new[] { "questionText", "questionType", "correctAnswer" }
                                 }
@@ -158,7 +160,8 @@ namespace Backend.Application.Services
                     Id = Guid.NewGuid(),
                     QuestionText = geminiQuestion.QuestionText,
                     QuestionType = questionType,
-                    CorrectAnswer = geminiQuestion.CorrectAnswer
+                    CorrectAnswer = geminiQuestion.CorrectAnswer,
+                    Topic = geminiQuestion.Topic
                 };
                 if (questionType == QuestionType.MultipleChoice)
                 {

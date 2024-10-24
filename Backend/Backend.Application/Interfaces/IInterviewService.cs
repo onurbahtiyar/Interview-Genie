@@ -9,4 +9,6 @@ public interface IInterviewService
     Task<InterviewQuestionResponse> GetNextQuestionAsync(Guid interviewId);
     Task SubmitAnswerAsync(Guid interviewId, SubmitAnswerRequest request);
     Task<EndInterviewResponse> EndInterviewAsync(Guid interviewId);
+    Task<MainPageDto> GetMainPageDataAsync(Guid userId);
+    Task<InterviewDetailsDto> GetInterviewDetailsAsync(Guid interviewId);
 }

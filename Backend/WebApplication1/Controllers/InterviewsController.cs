@@ -1,5 +1,6 @@
 ﻿using Backend.Application.Interfaces;
 using Backend.Domain.DTOs;
+using Backend.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.API.Controllers;
@@ -79,6 +80,44 @@ public class InterviewsController : ControllerBase
         {
             var result = await _interviewService.EndInterviewAsync(interviewId);
             return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Kullanıcının ana sayfa verilerini alır, geçmiş görüşmeleri ve özet istatistikleri içerir.
+    /// </summary>
+    /// <returns>Ana sayfa verileri.</returns>
+    [HttpGet("main")]
+    public async Task<IActionResult> GetMainPageData()
+    {
+        try
+        {
+            var userId = User.GetUserId();
+            var mainPageData = await _interviewService.GetMainPageDataAsync(userId);
+            return Ok(mainPageData);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { error = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Belirtilen görüşme oturumunun detaylarını alır.
+    /// </summary>
+    /// <param name="interviewId">Görüşme oturumunun kimliği.</param>
+    /// <returns>Görüşme oturumu detayları.</returns>
+    [HttpGet("{interviewId}/details")]
+    public async Task<IActionResult> GetInterviewDetails(Guid interviewId)
+    {
+        try
+        {
+            var details = await _interviewService.GetInterviewDetailsAsync(interviewId);
+            return Ok(details);
         }
         catch (Exception ex)
         {
