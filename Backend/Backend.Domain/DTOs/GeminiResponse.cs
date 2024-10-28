@@ -3,6 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace Backend.Domain.DTOs
 {
+
+    public class GeminiResponseDto
+    {
+        [JsonPropertyName("candidates")]
+        public List<Candidate> Candidates { get; set; }
+    }
+
     public class GeminiResponseWrapper
     {
         [JsonPropertyName("candidates")]
@@ -42,7 +49,7 @@ namespace Backend.Domain.DTOs
         public string QuestionType { get; set; }
 
         [JsonPropertyName("options")]
-        public List<string> Options { get; set; }
+        public string[] Options { get; set; }
 
         [JsonPropertyName("correctAnswer")]
         public string CorrectAnswer { get; set; }

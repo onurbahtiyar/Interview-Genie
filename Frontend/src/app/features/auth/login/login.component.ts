@@ -35,6 +35,9 @@ export class LoginComponent {
       .subscribe(response => {
         if (response?.success) {
           localStorage.setItem('token', response.data.token);
+
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+
           this.router.navigate(['/interviews']);
         } else {
           this.errorMessage = response?.message || 'Bir hata oluştu.';

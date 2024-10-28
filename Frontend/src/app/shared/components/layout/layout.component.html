@@ -1,0 +1,92 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-lg flex flex-col transition-transform transform duration-300 ease-in-out">
+    <!-- Logo Bölümü -->
+    <div class="p-6 flex items-center justify-center border-b">
+      <img src="assets/logo.png" alt="Interview Genie" class="h-12 w-auto" />
+    </div>
+    <!-- Navigasyon Menüsü -->
+    <nav class="flex-1 px-2 py-4 space-y-1">
+      <a
+        routerLink="/interviews/dashboard"
+        routerLinkActive="bg-blue-500 text-white"
+        class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-500 hover:text-white transition-colors"
+      >
+        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <!-- Dashboard Icon -->
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
+        </svg>
+        Ana Sayfa
+      </a>
+      <a
+        routerLink="/interviews/create-interview"
+        routerLinkActive="bg-blue-500 text-white"
+        class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-500 hover:text-white transition-colors"
+      >
+        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <!-- Create Icon -->
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+        Mülakat Oluştur
+      </a>
+      <a
+        routerLink="/profile/view"
+        routerLinkActive="bg-blue-500 text-white"
+        class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-500 hover:text-white transition-colors"
+      >
+        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <!-- Profile Icon -->
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4.992 4.992 0 015 16V5a2 2 0 012-2h10a2 2 0 012 2v11c0 .743-.201 1.442-.555 2.048M15 14h.01M12 14h.01M9 14h.01M12 20.25c-1.95 0-3.729-.632-5.121-1.696" />
+        </svg>
+        Profilim
+      </a>
+      <a
+        routerLink="/profile/edit"
+        routerLinkActive="bg-blue-500 text-white"
+        class="group flex items-center px-2 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-500 hover:text-white transition-colors"
+      >
+        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <!-- Edit Icon -->
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.5 3.5a2.121 2.121 0 013 3L7 19H4v-3L16.5 3.5z" />
+        </svg>
+        Profil Düzenle
+      </a>
+    </nav>
+    <!-- Çıkış Yap Butonu -->
+    <div class="p-4 border-t">
+      <button (click)="logout()" class="w-full flex items-center justify-center px-4 py-2 bg-red-500 text-white text-sm font-medium rounded-md hover:bg-red-600 transition-colors">
+        <svg class="mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <!-- Logout Icon -->
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7" />
+        </svg>
+        Çıkış Yap
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-2xl font-semibold text-gray-700">{{ pageTitle }}</h1> <!-- Dinamik Başlık -->
+      </div>
+      <!-- Profil Bilgisi -->
+      <div class="flex items-center space-x-4">
+        <div class="text-right">
+          <p class="text-sm font-medium text-gray-700">{{ user.username }}</p>
+          <p class="text-xs text-gray-500">{{ user.email }}</p>
+        </div>
+        <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-semibold border">
+          {{ user.username | slice: 0:2 | uppercase }}
+        </div>
+      </div>
+    </header>
+
+    <!-- Router Outlet -->
+    <main class="p-6 overflow-auto bg-gray-50 flex-1">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

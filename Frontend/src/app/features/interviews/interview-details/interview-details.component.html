@@ -1,5 +1,4 @@
 <div class="interview-details-container p-6 min-h-screen">
-  <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Süreç Detayları</h1>
 
   <!-- Yükleniyor ve Hata Mesajları -->
   <div *ngIf="isLoading" class="loading text-center mt-6">
@@ -33,6 +32,21 @@
       </div>
     </div>
   </div>
+
+    <!-- Display Overall Feedback -->
+    <div *ngIf="parsedProfileComment" class="overall-feedback mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-600">Genel Geri Bildirim</h2>
+      <p class="text-lg text-gray-700">{{ parsedProfileComment.OverallFeedback }}</p>
+    </div>
+  
+    <!-- Display Areas of Improvement -->
+    <div *ngIf="parsedProfileComment" class="areas-of-improvement mb-8">
+      <h2 class="text-2xl font-semibold mb-4 text-blue-600">Gelişim Alanları</h2>
+      <div *ngFor="let area of parsedProfileComment.AreasOfImprovement" class="area-card bg-white p-6 rounded-lg shadow mb-4">
+        <h3 class="text-xl font-medium text-gray-800 mb-2">{{ area.Topic }}</h3>
+        <p class="text-gray-700">{{ area.Feedback }}</p>
+      </div>
+    </div>
 
   <!-- Performans Grafikleri -->
   <div *ngIf="!isLoading && !error" class="charts mb-8">

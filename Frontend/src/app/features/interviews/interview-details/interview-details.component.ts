@@ -5,6 +5,7 @@ import { InterviewDetails } from '../../../models/interview-details.model';
 
 import { Chart, ChartOptions, ChartType, registerables } from 'chart.js';
 import { InterviewQuestionDetail } from 'src/app/models/interview-question-detail.model';
+import { ProfileComment } from 'src/app/models/profilecomment.dto';
 
 Chart.register(...registerables);
 
@@ -19,6 +20,8 @@ export class InterviewDetailsComponent implements OnInit {
   error: string | null = null;
 
   questions: InterviewQuestionDetail[] = [];
+  parsedProfileComment: ProfileComment | null = null;
+  profileComment: string = '';
 
   // Genel istatistikler
   totalQuestions: number = 0;
@@ -76,6 +79,11 @@ export class InterviewDetailsComponent implements OnInit {
         this.processBarChartData();
         this.processRadarChartData();
         this.isLoading = false;
+        this.profileComment = data.profileComment;
+
+        // Parse the profile comment JSON string
+        this.parseProfileComment();
+
       },
       error: (err) => {
         this.error = err.error?.error || 'Detaylar yüklenemedi.';
@@ -160,5 +168,23 @@ export class InterviewDetailsComponent implements OnInit {
 
   isAnswerCorrect(question: InterviewQuestionDetail): boolean {
     return question.isCorrect;
+  }
+
+  parseProfileComment(): void {
+    try {
+      if (this.profileComment) {
+        if (typeof this.profileComment === 'string') {
+          this.parsedProfileComment = JSON.parse(this.profileComment);
+        } else {
+          // If profileComment is already an object
+          this.parsedProfileComment = this.profileComment;
+        }
+      } else {
+        this.parsedProfileComment = null;
+      }
+    } catch (error) {
+      console.error('Profile comment parsing error:', error);
+      this.parsedProfileComment = null;
+    }
   }
 }

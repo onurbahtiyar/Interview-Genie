@@ -1,13 +1,23 @@
-﻿namespace Backend.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class InterviewSession
+namespace Backend.Domain.Entities;
+
+public partial class InterviewSession
 {
     public Guid Id { get; set; }
+
     public Guid UserId { get; set; }
+
     public Guid CompanyInfoId { get; set; }
-    public CompanyInfo CompanyInfo { get; set; }
-    public List<InterviewQuestion> Questions { get; set; } = new List<InterviewQuestion>();
-    public bool IsActive { get; set; } = true;
-    public DateTime StartedAt { get; set; } = DateTime.UtcNow;
-    public DateTime? EndedAt { get; set; }
+
+    public bool IsActive { get; set; }
+    
+    public string? ProfileComment { get; set; }
+
+    public virtual CompanyInfo CompanyInfo { get; set; } = null!;
+
+    public virtual ICollection<InterviewQuestion> InterviewQuestions { get; set; } = new List<InterviewQuestion>();
+
+    public virtual User User { get; set; } = null!;
 }

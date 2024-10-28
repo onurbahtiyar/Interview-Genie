@@ -22,7 +22,7 @@ import { BaseChartDirective } from 'ng2-charts';
     InterviewsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    BaseChartDirective,
+    BaseChartDirective
   ]
 })
 export class InterviewsModule { }

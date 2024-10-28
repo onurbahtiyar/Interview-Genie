@@ -1,11 +1,21 @@
-﻿namespace Backend.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class CompanyInfo
+namespace Backend.Domain.Entities;
+
+public partial class CompanyInfo
 {
     public Guid Id { get; set; }
-    public string CompanyName { get; set; }
-    public string Industry { get; set; }
-    public string Location { get; set; }
-    public string Description { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public string CompanyName { get; set; } = null!;
+
+    public string Industry { get; set; } = null!;
+
+    public string Location { get; set; } = null!;
+
+    public string Description { get; set; } = null!;
+
+    public DateTime CreatedAt { get; set; }
+
+    public virtual ICollection<InterviewSession> InterviewSessions { get; set; } = new List<InterviewSession>();
 }

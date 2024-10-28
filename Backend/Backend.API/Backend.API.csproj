@@ -20,7 +20,6 @@
     <ProjectReference Include="..\Backend.Application\Backend.Application.csproj" />
     <ProjectReference Include="..\Backend.Common\Backend.Common.csproj" />
     <ProjectReference Include="..\Backend.Configuration\Backend.Configuration.csproj" />
-    <ProjectReference Include="..\Backend.ServiceDefaults\Backend.ServiceDefaults.csproj" />
     <ProjectReference Include="..\Backend.Infrastructure\Backend.Infrastructure.csproj" />
   </ItemGroup>
 

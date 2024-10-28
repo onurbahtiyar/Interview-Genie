@@ -1,29 +1,28 @@
-﻿using System;
+﻿using Backend.Domain.Enums;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
-namespace Backend.Domain.Entities
+namespace Backend.Domain.Entities;
+
+public partial class InterviewQuestion
 {
-        public enum QuestionType
-        {
-            MultipleChoice,
-            OpenEnded
-        }
+    public Guid Id { get; set; }
 
-    public class InterviewQuestion
-    {
-        [Key]
-        public Guid Id { get; set; }
-        public Guid InterviewSessionId { get; set; }
-        public string QuestionText { get; set; }
-        public QuestionType QuestionType { get; set; }
-        public List<string> Options { get; set; } = new List<string>();
-        public string Topic { get; set; }
-        public string CorrectAnswer { get; set; }
-        public string UserAnswer { get; set; }
-        public bool? IsCorrect { get; set; }
-        public DateTime? AskedAt { get; set; }
-        public DateTime? AnsweredAt { get; set; }
-        public InterviewSession InterviewSession { get; set; }
-    }
+    public Guid InterviewSessionId { get; set; }
+
+    public string QuestionText { get; set; } = null!;
+
+    public QuestionType QuestionType { get; set; }
+
+    public string[]? Options { get; set; }
+
+    public string CorrectAnswer { get; set; } = null!;
+
+    public string? UserAnswer { get; set; }
+
+    public bool? IsCorrect { get; set; }
+
+    public string? Topic { get; set; }
+
+    public virtual InterviewSession InterviewSession { get; set; } = null!;
 }

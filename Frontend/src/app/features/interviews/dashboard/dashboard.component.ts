@@ -44,4 +44,12 @@ export class DashboardComponent implements OnInit {
   viewDetails(sessionId: string): void {
     this.router.navigate(['/interviews', sessionId, 'details']);
   }
+
+  navigateToProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+  
+  navigateToEditProfile(): void {
+    this.router.navigate(['/profile/edit']);
+  }
 }
