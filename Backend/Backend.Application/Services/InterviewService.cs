@@ -15,19 +15,22 @@ namespace Backend.Application.Services
         private readonly IRepository<InterviewSession> _interviewRepository;
         private readonly IRepository<InterviewQuestion> _questionRepository;
         private readonly IRepository<CompanyInfo> _companyRepository;
+        private readonly IRepository<LearningTree> _learningTreeRepository;
 
         public InterviewService(
             IGeminiService geminiService,
             IProfileService profileService,
             IRepository<InterviewSession> interviewRepository,
             IRepository<InterviewQuestion> questionRepository,
-            IRepository<CompanyInfo> companyRepository)
+            IRepository<CompanyInfo> companyRepository,
+            IRepository<LearningTree> learningTreeRepository)
         {
             _geminiService = geminiService;
             _profileService = profileService;
             _interviewRepository = interviewRepository;
             _questionRepository = questionRepository;
             _companyRepository = companyRepository;
+            _learningTreeRepository = learningTreeRepository;
         }
 
         public async Task<InterviewSession> CreateInterviewAsync(Guid userId, CreateInterviewRequest request)
@@ -268,7 +271,6 @@ namespace Backend.Application.Services
 
         private async Task<InterviewAnalysisDto> AnalyzeInterviewWithProfileAsync(Guid userId, Guid interviewId)
         {
-            // Retrieve the user's profile
             var profileResult = await _profileService.GetProfileAsync(userId);
             if (!profileResult.Success)
             {
@@ -276,7 +278,6 @@ namespace Backend.Application.Services
             }
             var profile = profileResult.Data;
 
-            // Retrieve the interview session
             var interview = await _interviewRepository.GetAsync(
                 x => x.Id == interviewId && x.UserId == userId,
                 x => x.InterviewQuestions,
@@ -287,8 +288,42 @@ namespace Backend.Application.Services
                 throw new Exception("Interview session not found.");
             }
 
-            // Call GeminiService to analyze the data
             var analysis = await _geminiService.AnalyzeInterviewWithProfileAsync(profile, interview);
+
+            if (analysis.LearningTree != null)
+            {
+                foreach (var learningItem in analysis.LearningTree)
+                {
+                    var learningTreeEntity = new LearningTree
+                    {
+                        Id = Guid.NewGuid(),
+                        InterviewSessionId = interview.Id,
+                        Topic = learningItem.Topic,
+                        DifficultyLevel = learningItem.DifficultyLevel,
+                        Importance = learningItem.Importance
+                    };
+
+                    // Eğer Alt Konular varsa, bunları da kaydet
+                    if (learningItem.SubTopics != null && learningItem.SubTopics.Any())
+                    {
+                        foreach (var subTopic in learningItem.SubTopics)
+                        {
+                            var subLearningTreeEntity = new LearningTree
+                            {
+                                Id = Guid.NewGuid(),
+                                InterviewSessionId = interview.Id,
+                                Topic = subTopic.Topic,
+                                DifficultyLevel = subTopic.DifficultyLevel,
+                                Importance = subTopic.Importance
+                            };
+                            await _learningTreeRepository.AddAsync(subLearningTreeEntity);
+                        }
+                    }
+
+                    await _learningTreeRepository.AddAsync(learningTreeEntity);
+                }
+                await _learningTreeRepository.SaveChangesAsync();
+            }
 
             return analysis;
         }

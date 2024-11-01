@@ -8,6 +8,7 @@ import { LanguageDto } from 'src/app/models/language.dto';
 import { ProfileDto } from 'src/app/models/profile.dto';
 import { ProjectDto } from 'src/app/models/project.dto';
 import { SkillDto } from 'src/app/models/skill.dto';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-profile-edit',
@@ -30,7 +31,8 @@ export class ProfileEditComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar // MatSnackBar servisini ekleyin
   ) {
     this.skillsForm = this.fb.group({
       skills: [[], Validators.required],
@@ -61,11 +63,11 @@ export class ProfileEditComponent implements OnInit {
         if (result.success) {
           this.allSkills = result.data;
         } else {
-          this.error = result.message;
+          this.showError(result.message || 'Yetenekler yüklenirken bir hata oluştu.');
         }
       },
       error: (err) => {
-        this.error = err.error?.message || 'Yetenekler yüklenirken bir hata oluştu.';
+        this.showError(err.error?.message || 'Yetenekler yüklenirken bir hata oluştu.');
       },
     });
   }
@@ -76,11 +78,11 @@ export class ProfileEditComponent implements OnInit {
         if (result.success) {
           this.allLanguages = result.data;
         } else {
-          this.error = result.message;
+          this.showError(result.message || 'Diller yüklenirken bir hata oluştu.');
         }
       },
       error: (err) => {
-        this.error = err.error?.message || 'Diller yüklenirken bir hata oluştu.';
+        this.showError(err.error?.message || 'Diller yüklenirken bir hata oluştu.');
       },
     });
   }
@@ -93,12 +95,12 @@ export class ProfileEditComponent implements OnInit {
           this.profile = result.data;
           this.initializeForms();
         } else {
-          this.error = result.message;
+          this.showError(result.message || 'Profil yüklenirken bir hata oluştu.');
         }
         this.isLoading = false;
       },
       error: (err) => {
-        this.error = err.error?.message || 'Profil yüklenirken bir hata oluştu.';
+        this.showError(err.error?.message || 'Profil yüklenirken bir hata oluştu.');
         this.isLoading = false;
       },
     });
@@ -108,11 +110,11 @@ export class ProfileEditComponent implements OnInit {
     if (!this.profile) return;
 
     // Yetenekler
-    const selectedSkills = this.profile.skills.map((s:SkillDto) => s.name);
+    const selectedSkills = this.profile.skills.map((s: SkillDto) => s.name);
     this.skillsForm.patchValue({ skills: selectedSkills });
 
     // Diller
-    const selectedLanguages = this.profile.languages.map((l:LanguageDto) => l.name);
+    const selectedLanguages = this.profile.languages.map((l: LanguageDto) => l.name);
     this.languagesForm.patchValue({ languages: selectedLanguages });
 
     // Projeler
@@ -149,13 +151,22 @@ export class ProfileEditComponent implements OnInit {
       this.profileService.updateSkills(skills).subscribe({
         next: (result) => {
           if (result.success) {
-            alert('Yetenekler güncellendi.');
+            this.snackBar.open('Yetenekler başarıyla güncellendi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            });
           } else {
-            alert(result.message);
+            this.snackBar.open(result.message || 'Yetenekler güncellenemedi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-error']
+            });
           }
         },
         error: (err) => {
-          alert(err.error?.message || 'Bir hata oluştu.');
+          this.snackBar.open(err.error?.message || 'Bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
         },
       });
     }
@@ -168,13 +179,22 @@ export class ProfileEditComponent implements OnInit {
       this.profileService.updateLanguages(languages).subscribe({
         next: (result) => {
           if (result.success) {
-            alert('Diller güncellendi.');
+            this.snackBar.open('Diller başarıyla güncellendi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            });
           } else {
-            alert(result.message);
+            this.snackBar.open(result.message || 'Diller güncellenemedi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-error']
+            });
           }
         },
         error: (err) => {
-          alert(err.error?.message || 'Bir hata oluştu.');
+          this.snackBar.open(err.error?.message || 'Bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
         },
       });
     }
@@ -202,28 +222,37 @@ export class ProfileEditComponent implements OnInit {
 
   saveProjects(): void {
     if (this.projectsForm.valid && this.profile) {
-        const projects: ProjectDto[] = this.projects.value.map((project: any) => ({
-            ...project,
-            skills: project.skills.map((skillName: string) => {
-                const skill = this.allSkills.find(s => s.name === skillName);
-                return skill ? { id: skill.id, name: skill.name } : null;
-            }).filter((skill:any) => skill !== null) // null değerleri filtrele
-        }));
+      const projects: ProjectDto[] = this.projects.value.map((project: any) => ({
+        ...project,
+        skills: project.skills.map((skillName: string) => {
+          const skill = this.allSkills.find(s => s.name === skillName);
+          return skill ? { id: skill.id, name: skill.name } : null;
+        }).filter((skill: any) => skill !== null) // null değerleri filtrele
+      }));
 
-        this.profileService.addOrUpdateProjects(projects).subscribe({
-            next: (result) => {
-                if (result.success) {
-                    alert('Projeler güncellendi.');
-                } else {
-                    alert(result.message);
-                }
-            },
-            error: (err) => {
-                alert(err.error?.message || 'Bir hata oluştu.');
-            },
-        });
+      this.profileService.addOrUpdateProjects(projects).subscribe({
+        next: (result) => {
+          if (result.success) {
+            this.snackBar.open('Projeler başarıyla güncellendi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            });
+          } else {
+            this.snackBar.open(result.message || 'Projeler güncellenemedi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-error']
+            });
+          }
+        },
+        error: (err) => {
+          this.snackBar.open(err.error?.message || 'Bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
+        },
+      });
     }
-}
+  }
 
   // Şirketler
   get companies(): FormArray {
@@ -247,17 +276,26 @@ export class ProfileEditComponent implements OnInit {
 
   saveCompanies(): void {
     if (this.companiesForm.valid && this.profile) {
-      const companies: CompanyDto[] = this.companiesForm.value.companies
+      const companies: CompanyDto[] = this.companiesForm.value.companies;
       this.profileService.addOrUpdateCompanies(companies).subscribe({
         next: (result) => {
           if (result.success) {
-            alert('Şirketler güncellendi.');
+            this.snackBar.open('Şirketler başarıyla güncellendi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-success']
+            });
           } else {
-            alert(result.message);
+            this.snackBar.open(result.message || 'Şirketler güncellenemedi.', 'Kapat', {
+              duration: 3000,
+              panelClass: ['snackbar-error']
+            });
           }
         },
         error: (err) => {
-          alert(err.error?.message || 'Bir hata oluştu.');
+          this.snackBar.open(err.error?.message || 'Bir hata oluştu.', 'Kapat', {
+            duration: 3000,
+            panelClass: ['snackbar-error']
+          });
         },
       });
     }
@@ -265,5 +303,12 @@ export class ProfileEditComponent implements OnInit {
 
   cancel(): void {
     this.router.navigate(['/profile']);
+  }
+
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Kapat', {
+      duration: 3000,
+      panelClass: ['snackbar-error']
+    });
   }
 }

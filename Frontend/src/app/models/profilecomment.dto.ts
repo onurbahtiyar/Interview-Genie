@@ -1,6 +1,8 @@
 import { AreaOfImprovement } from "./areaffimprovement.dto";
+import { LearningTreeDto } from "./learning-tree.dto";
 
 export interface ProfileComment {
-    AreasOfImprovement: AreaOfImprovement[];
-    OverallFeedback: string;
-  }
+  AreasOfImprovement: AreaOfImprovement[];
+  LearningTree: LearningTreeDto[];
+  OverallFeedback: string;
+}

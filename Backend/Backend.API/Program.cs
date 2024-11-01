@@ -35,6 +35,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IInterviewService, InterviewService>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<ITrainingService, TrainingService>();
 
 builder.Services.AddHttpClient<IGeminiService, GeminiService>();
 

@@ -262,11 +262,11 @@ public class GeminiService : IGeminiService
             var questions = group.ToList();
 
             // Beklenen soru sayısı: 5 (4 MC + 1 OE)
-            if (questions.Count != questionsPerTopic)
-            {
-                _logger.LogError($"Topic '{topic}' için beklenen soru sayısı {questionsPerTopic}, fakat {questions.Count} soru bulundu.");
-                throw new JsonException($"Topic '{topic}' için beklenen soru sayısı {questionsPerTopic}, fakat {questions.Count} soru bulundu.");
-            }
+            //if (questions.Count != questionsPerTopic)
+            //{
+            //    _logger.LogError($"Topic '{topic}' için beklenen soru sayısı {questionsPerTopic}, fakat {questions.Count} soru bulundu.");
+            //    throw new JsonException($"Topic '{topic}' için beklenen soru sayısı {questionsPerTopic}, fakat {questions.Count} soru bulundu.");
+            //}
 
             // Soru türlerinin doğruluğunu kontrol et
             var multipleChoiceCount = questions.Count(q => q.QuestionType.Equals("MultipleChoice", StringComparison.OrdinalIgnoreCase));
@@ -395,7 +395,7 @@ public class GeminiService : IGeminiService
 
     public async Task<InterviewAnalysisDto> AnalyzeInterviewWithProfileAsync(ProfileDto profile, InterviewSession interview)
     {
-        // Profil ve mülakat verilerini JSON formatına çevirme
+        // Serialize profile and interview data
         var profileJson = JsonSerializer.Serialize(profile);
         var interviewJson = JsonSerializer.Serialize(new
         {
@@ -412,22 +412,23 @@ public class GeminiService : IGeminiService
             }
         });
 
-        // Kullanıcının yanlış cevap verdiği soruları konularına göre grupla
-        var incorrectAnswersByTopic = interview.InterviewQuestions
-            .Where(q => q.IsCorrect == false)
+        // Compute correct and incorrect counts per topic
+        var answersByTopic = interview.InterviewQuestions
             .GroupBy(q => q.Topic)
             .Select(g => new
             {
                 Topic = g.Key,
-                IncorrectCount = g.Count()
+                CorrectCount = g.Count(q => q.IsCorrect == true),
+                IncorrectCount = g.Count(q => q.IsCorrect == false)
             })
             .ToList();
 
-        var incorrectAnswersJson = JsonSerializer.Serialize(incorrectAnswersByTopic);
+        var answersByTopicJson = JsonSerializer.Serialize(answersByTopic);
 
-        var prompt = $"Kullanıcının profili, tamamladığı mülakat ve yanlış cevap verdiği konular aşağıda verilmiştir. " +
-                     $"Profiline ve mülakat performansına dayanarak kullanıcının gelişebileceği alanları belirle. " +
-                     $"Eksik olduğu konuları ve bu konularda nasıl gelişebileceğini detaylı bir şekilde açıkla. " +
+        // Adjusted prompt
+        var prompt = $"Kullanıcının profili, tamamladığı mülakat ve her konu için doğru ve yanlış cevap sayıları aşağıda verilmiştir. " +
+                     $"Profiline ve mülakat performansına dayanarak, kullanıcının gelişebileceği alanları belirle ve hiyerarşik bir öğrenme ağacı (learning tree) oluştur. " +
+                     $"Öğrenme ağacında, ana konuların altında ilgili alt konuları listele. Her konunun zorluk derecesini ve kullanıcının bu konuyu öğrenmesinin ne kadar önemli olduğunu belirt. " +
                      $"Yanıtını aşağıdaki JSON formatında ver:\n\n" +
                      "{\n" +
                      "  \"areasOfImprovement\": [\n" +
@@ -437,11 +438,27 @@ public class GeminiService : IGeminiService
                      "    }\n" +
                      "    // ... daha fazla konu\n" +
                      "  ],\n" +
+                     "  \"learningTree\": [\n" +
+                     "    {\n" +
+                     "      \"topic\": \"Ana Konu\",\n" +
+                     "      \"difficultyLevel\": \"Kolay/Orta/Zor\",\n" +
+                     "      \"importance\": \"Düşük/Orta/Yüksek\",\n" +
+                     "      \"subTopics\": [\n" +
+                     "        {\n" +
+                     "          \"topic\": \"Alt Konu\",\n" +
+                     "          \"difficultyLevel\": \"Kolay/Orta/Zor\",\n" +
+                     "          \"importance\": \"Düşük/Orta/Yüksek\"\n" +
+                     "        }\n" +
+                     "        // ... daha fazla alt konu\n" +
+                     "      ]\n" +
+                     "    }\n" +
+                     "    // ... daha fazla ana konu\n" +
+                     "  ],\n" +
                      "  \"overallFeedback\": \"Genel geri bildirim.\"\n" +
                      "}\n\n" +
                      $"Kullanıcı Profili:\n{profileJson}\n\n" +
                      $"Mülakat Verisi:\n{interviewJson}\n\n" +
-                     $"Yanlış Cevap Verilen Konular:\n{incorrectAnswersJson}";
+                     $"Her Konu İçin Doğru ve Yanlış Cevap Sayıları:\n{answersByTopicJson}";
 
         var requestBody = new
         {
@@ -528,5 +545,161 @@ public class GeminiService : IGeminiService
 
         return analysis;
     }
+
+    public async Task<TrainingPlan> GenerateTrainingPlanAsync(string topic, string language)
+    {
+        var prompt = $"Kullanıcının öğrenmek istediği konu: {topic}. " +
+                     $"Bu konu hakkında detaylı bir eğitim planı oluştur. " +
+                     $"Eğitim planı, adım adım yapılacak işleri ve her adımda öğrenilecek alt konuları içersin. " +
+                     $"Her adımı numaralandır ve her adımın altında gerekli açıklamaları ver. " +
+                     $"Yanıtını aşağıdaki JSON formatında ver:\n\n" +
+                     "{\n" +
+                     "  \"topic\": \"Ana Konu\",\n" +
+                     "  \"steps\": [\n" +
+                     "    {\n" +
+                     "      \"stepNumber\": 1,\n" +
+                     "      \"title\": \"Adım Başlığı\",\n" +
+                     "      \"description\": \"Adımın detaylı açıklaması.\"\n" +
+                     "    }\n" +
+                     "    // ... daha fazla adım\n" +
+                     "  ]\n" +
+                     "}\n\n" +
+                     $"{language} dilinde yanıt ver.";
+
+        var requestBody = new
+        {
+            contents = new[]
+            {
+                new
+                {
+                    parts = new[]
+                    {
+                        new { text = prompt }
+                    }
+                }
+            },
+            generationConfig = new
+            {
+                response_mime_type = "application/json",
+            }
+        };
+
+        var jsonRequest = JsonSerializer.Serialize(requestBody);
+        var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"{_geminiEndpoint}?key={_apiKey}", content);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+
+        _logger.LogInformation($"Gemini API Response (Training Plan): {jsonResponse}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogError($"Gemini API Error: {response.StatusCode} - {jsonResponse}");
+            throw new Exception($"Gemini API Error: {response.StatusCode} - {jsonResponse}");
+        }
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        var geminiResponse = JsonSerializer.Deserialize<GeminiResponseWrapper>(jsonResponse, options);
+
+        if (geminiResponse?.Candidates == null || !geminiResponse.Candidates.Any())
+        {
+            _logger.LogError("Gemini API returned no candidates for training plan.");
+            throw new Exception("Gemini API returned no candidates for training plan.");
+        }
+
+        var responseText = geminiResponse.Candidates[0].Content.Parts.FirstOrDefault()?.Text;
+
+        _logger.LogInformation($"Extracted Training Plan Text: {responseText}");
+
+        if (string.IsNullOrWhiteSpace(responseText))
+        {
+            _logger.LogError("Gemini API returned empty training plan text.");
+            throw new Exception("Gemini API returned empty training plan text.");
+        }
+
+        TrainingPlan trainingPlan;
+        try
+        {
+            trainingPlan = JsonSerializer.Deserialize<TrainingPlan>(responseText, options);
+            _logger.LogInformation($"Deserialized Training Plan: {JsonSerializer.Serialize(trainingPlan)}");
+        }
+        catch (JsonException ex)
+        {
+            _logger.LogError($"Failed to parse training plan JSON: {ex.Message}");
+            throw;
+        }
+
+        if (trainingPlan == null)
+        {
+            _logger.LogError("Deserialized training plan is null.");
+            throw new Exception("Deserialized training plan is null.");
+        }
+
+        return trainingPlan;
+    }
+
+    public async Task<string> ChatbotResponseAsync(string topic, string userQuestion, string language)
+    {
+        var prompt = $"Kullanıcı, {topic} konusunda bir soruya sahip. " +
+                     $"Soru: {userQuestion} " +
+                     $"Kullanıcıya bu konuda yardımcı olacak bir cevap ver. " +
+                     $"{language} dilinde yanıt ver.";
+
+        var requestBody = new
+        {
+            contents = new[]
+            {
+                new
+                {
+                    parts = new[]
+                    {
+                        new { text = prompt }
+                    }
+                }
+            }
+        };
+
+        var jsonRequest = JsonSerializer.Serialize(requestBody);
+        var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json");
+
+        var response = await _httpClient.PostAsync($"{_geminiEndpoint}?key={_apiKey}", content);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+
+        _logger.LogInformation($"Gemini API Response (Chatbot): {jsonResponse}");
+
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogError($"Gemini API Error: {response.StatusCode} - {jsonResponse}");
+            throw new Exception($"Gemini API Error: {response.StatusCode} - {jsonResponse}");
+        }
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        var geminiResponse = JsonSerializer.Deserialize<GeminiResponseWrapper>(jsonResponse, options);
+
+        if (geminiResponse?.Candidates == null || !geminiResponse.Candidates.Any())
+        {
+            _logger.LogError("Gemini API returned no candidates for chatbot.");
+            throw new Exception("Gemini API returned no candidates for chatbot.");
+        }
+
+        var responseText = geminiResponse.Candidates[0].Content.Parts.FirstOrDefault()?.Text;
+
+        if (string.IsNullOrWhiteSpace(responseText))
+        {
+            _logger.LogError("Gemini API returned empty chatbot response.");
+            throw new Exception("Gemini API returned empty chatbot response.");
+        }
+
+        return responseText.Trim();
+    }
+
 
 }

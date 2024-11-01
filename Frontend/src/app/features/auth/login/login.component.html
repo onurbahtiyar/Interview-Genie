@@ -1,15 +1,15 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-indigo-600 dark:from-gray-800 dark:to-gray-900">
-  <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden w-full max-w-md">
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-md">
     <div class="p-8">
       <!-- Logo veya Başlık -->
-      <div class="flex justify-center">
-        <img src="assets/logo.png" alt="Logo" class="h-48">
+      <div class="flex justify-center mb-6">
+        <img src="assets/logo.png" alt="BTK Logo" class="h-24 w-auto">
       </div>
       
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
         <!-- Kullanıcı Adı -->
         <div class="mb-4">
-          <label for="loginUsername" class="block text-gray-700 dark:text-gray-300 mb-2">Kullanıcı Adı</label>
+          <label for="loginUsername" class="block text-gray-700 mb-2">Kullanıcı Adı</label>
           <input
             id="loginUsername"
             type="text"
@@ -17,17 +17,18 @@
             name="username"
             required
             #loginUsername="ngModel"
-            class="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            class="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
             placeholder="Kullanıcı Adınızı Girin"
+            aria-describedby="loginUsernameError"
           />
-          <div *ngIf="loginUsername.invalid && (loginUsername.dirty || loginUsername.touched)" class="text-red-500 text-sm mt-1">
+          <div *ngIf="loginUsername.invalid && (loginUsername.dirty || loginUsername.touched)" id="loginUsernameError" class="text-red-500 text-sm mt-1">
             Kullanıcı adı gerekli.
           </div>
         </div>
 
         <!-- Şifre -->
         <div class="mb-6">
-          <label for="loginPassword" class="block text-gray-700 dark:text-gray-300 mb-2">Şifre</label>
+          <label for="loginPassword" class="block text-gray-700 mb-2">Şifre</label>
           <input
             id="loginPassword"
             type="password"
@@ -35,27 +36,43 @@
             name="password"
             required
             #loginPassword="ngModel"
-            class="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+            class="w-full px-4 py-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
             placeholder="Şifrenizi Girin"
+            aria-describedby="loginPasswordError"
           />
-          <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)" class="text-red-500 text-sm mt-1">
+          <div *ngIf="loginPassword.invalid && (loginPassword.dirty || loginPassword.touched)" id="loginPasswordError" class="text-red-500 text-sm mt-1">
             Şifre gerekli.
           </div>
+        </div>
+
+        <!-- Beni Hatırla ve Şifreyi Unuttum -->
+        <div class="flex items-center justify-between mb-6">
+          <label class="flex items-center text-gray-700">
+            <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
+            <span class="ml-2 text-sm">Beni Hatırla</span>
+          </label>
+          <a routerLink="/auth/forgot-password" class="text-sm text-indigo-600 hover:underline">
+            Şifrenizi mi Unuttunuz?
+          </a>
         </div>
 
         <!-- Giriş Butonu -->
         <button
           type="submit"
           [disabled]="loginForm.invalid"
-          class="w-full py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          class="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-300 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
         >
+          <!-- Giriş İkonu -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+          </svg>
           Giriş Yap
         </button>
       </form>
 
       <!-- Kayıt Ol -->
-      <div class="flex justify-between mt-4">
-        <a routerLink="/auth/register" class="text-sm text-indigo-600 hover:underline dark:text-indigo-400">
+      <div class="flex justify-center mt-4">
+        <a routerLink="/auth/register" class="text-sm text-indigo-600 hover:underline font-semibold">
           Hesabınız yok mu? Kayıt Ol
         </a>
       </div>
@@ -67,8 +84,8 @@
     </div>
 
     <!-- Dekoratif Elemanlar -->
-    <div class="bg-indigo-600 dark:bg-gray-700 p-4 text-center">
-      <p class="text-white text-sm">&copy; 2024 BTK. Tüm hakları saklıdır.</p>
+    <div class="bg-indigo-600 p-4 text-center">
+      <p class="text-white text-sm">&copy; 2024 Dummy.</p>
     </div>
   </div>
 </div>

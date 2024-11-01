@@ -1,126 +1,365 @@
-<div class="interview-details-container p-6 min-h-screen">
-
-  <!-- Yükleniyor ve Hata Mesajları -->
-  <div *ngIf="isLoading" class="loading text-center mt-6">
-    <p class="text-blue-500">Yükleniyor...</p>
-  </div>
-  <div *ngIf="error" class="error text-center mt-6 text-red-500">
-    {{ error }}
-  </div>
-
-  <!-- Genel İstatistikler -->
-  <div *ngIf="!isLoading && !error" class="statistics mb-8">
-    <h2 class="text-2xl font-semibold mb-4 text-blue-600">Genel İstatistikler</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <div class="stat-card bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-700">Toplam Soru</h3>
-        <p class="mt-2 text-2xl font-bold text-blue-500">{{ totalQuestions }}</p>
-      </div>
-      <div class="stat-card bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-700">Doğru Cevaplar</h3>
-        <p class="mt-2 text-2xl font-bold text-green-500">{{ totalCorrect }}</p>
-      </div>
-      <div class="stat-card bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-700">Yanlış Cevaplar</h3>
-        <p class="mt-2 text-2xl font-bold text-red-500">{{ totalIncorrect }}</p>
-      </div>
-      <div class="stat-card bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-700">Başarı Oranı</h3>
-        <p class="mt-2 text-2xl font-bold text-purple-500">
-          {{ successRate | number: '1.0-2' }}%
-        </p>
-      </div>
-    </div>
-  </div>
-
-    <!-- Display Overall Feedback -->
-    <div *ngIf="parsedProfileComment" class="overall-feedback mb-8">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-600">Genel Geri Bildirim</h2>
-      <p class="text-lg text-gray-700">{{ parsedProfileComment.OverallFeedback }}</p>
-    </div>
+<div class="interview-details-container p-6 min-h-screen bg-gray-50">
   
-    <!-- Display Areas of Improvement -->
-    <div *ngIf="parsedProfileComment" class="areas-of-improvement mb-8">
-      <h2 class="text-2xl font-semibold mb-4 text-blue-600">Gelişim Alanları</h2>
-      <div *ngFor="let area of parsedProfileComment.AreasOfImprovement" class="area-card bg-white p-6 rounded-lg shadow mb-4">
-        <h3 class="text-xl font-medium text-gray-800 mb-2">{{ area.Topic }}</h3>
-        <p class="text-gray-700">{{ area.Feedback }}</p>
+  <!-- Yükleniyor ve Hata Mesajları -->
+  <div *ngIf="isLoading" class="loading flex justify-center items-center h-full">
+    <p class="text-blue-300 text-xl font-semibold">Yükleniyor...</p>
+  </div>
+  <div *ngIf="error" class="error flex justify-center items-center h-full">
+    <p class="text-red-300 text-xl font-semibold">{{ error }}</p>
+  </div>
+
+  <!-- İçerik -->
+  <div *ngIf="!isLoading && !error" class="content space-y-8">
+
+    <!-- Genel İstatistikler -->
+    <div class="statistics">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Genel İstatistikler</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Toplam Soru -->
+        <div class="stat-card bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+          <div class="stat-icon text-blue-300">
+            <!-- SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c1.1046 0 2 .8954 2 2v4c0 1.1046-.8954 2-2 2s-2-.8954-2-2v-4c0-1.1046.8954-2 2-2zM12 4v2m0 12v2m-6-6h2m10 0h2M5.636 5.636l1.414 1.414M16.95 16.95l1.414 1.414M5.636 18.364l1.414-1.414M16.95 7.05l1.414-1.414" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-600">Toplam Soru</h3>
+            <p class="text-2xl font-bold text-blue-300">{{ totalQuestions }}</p>
+          </div>
+        </div>
+        <!-- Doğru Cevaplar -->
+        <div class="stat-card bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+          <div class="stat-icon text-green-300">
+            <!-- SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-600">Doğru Cevaplar</h3>
+            <p class="text-2xl font-bold text-green-300">{{ totalCorrect }}</p>
+          </div>
+        </div>
+        <!-- Yanlış Cevaplar -->
+        <div class="stat-card bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+          <div class="stat-icon text-red-300">
+            <!-- SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-600">Yanlış Cevaplar</h3>
+            <p class="text-2xl font-bold text-red-300">{{ totalIncorrect }}</p>
+          </div>
+        </div>
+        <!-- Başarı Oranı -->
+        <div class="stat-card bg-white p-6 rounded-lg shadow flex items-center space-x-4">
+          <div class="stat-icon text-purple-300">
+            <!-- SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M12 8c1.1046 0 2 .8954 2 2v4c0 1.1046-.8954 2-2 2s-2-.8954-2-2v-4c0-1.1046.8954-2 2-2zM12 4v2m0 12v2m-6-6h2m10 0h2M5.636 5.636l1.414 1.414M16.95 16.95l1.414 1.414M5.636 18.364l1.414-1.414M16.95 7.05l1.414-1.414" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-600">Başarı Oranı</h3>
+            <p class="text-2xl font-bold text-purple-300">
+              {{ successRate | number: '1.0-2' }}%
+            </p>
+          </div>
+        </div>
       </div>
     </div>
 
-  <!-- Performans Grafikleri -->
-  <div *ngIf="!isLoading && !error" class="charts mb-8">
-    <h2 class="text-2xl font-semibold mb-4 text-blue-600">Performans Grafikleri</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <!-- Bar Chart -->
-      <div class="chart-card bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-700 mb-4">Konulara Göre Performans (Bar Grafiği)</h3>
-        <div style="height: 300px;">
-          <canvas
-            baseChart
-            [data]="barChartData"
-            [options]="barChartOptions"
-            [type]="barChartType"
-            [legend]="barChartLegend"
-          >
-          </canvas>
+    <!-- Öğrenme Ağacı -->
+    <div *ngIf="parsedProfileComment && parsedProfileComment.LearningTree.length > 0" class="learning-tree mb-8">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Öğrenme Ağacı</h2>
+      <ul class="ml-4">
+        <li *ngFor="let node of parsedProfileComment.LearningTree" class="mb-4">
+          <div class="flex items-center">
+            <span class="font-semibold cursor-pointer text-blue-600 hover:underline"
+              (click)="openTrainingModal(node.Topic)">
+              {{ node.Topic }}
+            </span>
+            <span class="ml-2 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
+                'bg-green-100 text-green-800': node.DifficultyLevel === 'Kolay',
+                'bg-yellow-100 text-yellow-800': node.DifficultyLevel === 'Orta',
+                'bg-red-100 text-red-800': node.DifficultyLevel === 'Zor'
+              }">
+              {{ node.DifficultyLevel }}
+            </span>
+            <span class="ml-1 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
+                'bg-blue-100 text-blue-800': node.Importance === 'Düşük',
+                'bg-yellow-100 text-yellow-800': node.Importance === 'Orta',
+                'bg-purple-100 text-purple-800': node.Importance === 'Yüksek'
+              }">
+              {{ node.Importance }}
+            </span>
+          </div>
+          <!-- Alt Konular -->
+          <ul *ngIf="node.SubTopics && node.SubTopics.length > 0" class="ml-6 mt-2 border-l-2 border-gray-200 pl-4">
+            <li *ngFor="let sub of node.SubTopics" class="mb-2">
+              <div class="flex items-center">
+                <span class="font-semibold cursor-pointer text-blue-600 hover:underline"
+                  (click)="openTrainingModal(sub.Topic)">
+                  {{ sub.Topic }}
+                </span>
+                <span class="ml-2 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
+                    'bg-green-100 text-green-800': sub.DifficultyLevel === 'Kolay',
+                    'bg-yellow-100 text-yellow-800': sub.DifficultyLevel === 'Orta',
+                    'bg-red-100 text-red-800': sub.DifficultyLevel === 'Zor'
+                  }">
+                  {{ sub.DifficultyLevel }}
+                </span>
+                <span class="ml-1 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
+                    'bg-blue-100 text-blue-800': sub.Importance === 'Düşük',
+                    'bg-yellow-100 text-yellow-800': sub.Importance === 'Orta',
+                    'bg-purple-100 text-purple-800': sub.Importance === 'Yüksek'
+                  }">
+                  {{ sub.Importance }}
+                </span>
+              </div>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Genel Geri Bildirim -->
+    <div *ngIf="parsedProfileComment" class="overall-feedback mb-8">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Genel Geri Bildirim</h2>
+      <div class="bg-white p-6 rounded-lg shadow">
+        <p class="text-lg text-gray-700">{{ parsedProfileComment.OverallFeedback }}</p>
+      </div>
+    </div>
+
+    <!-- Gelişim Alanları -->
+    <div *ngIf="parsedProfileComment" class="areas-of-improvement mb-8">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Gelişim Alanları</h2>
+      <div class="space-y-6">
+        <div *ngFor="let area of parsedProfileComment.AreasOfImprovement"
+          class="area-card bg-white p-6 rounded-lg shadow">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ area.Topic }}</h3>
+          <p class="text-gray-700">{{ area.Feedback }}</p>
         </div>
       </div>
-      <!-- Radar Chart -->
-      <div class="chart-card bg-white p-6 rounded-lg shadow">
-        <h3 class="text-lg font-medium text-gray-700 mb-4">Konulara Göre Yetkinlik (Radar Grafiği)</h3>
-        <div style="height: 300px;">
-          <canvas
-            baseChart
-            [data]="radarChartData"
-            [options]="radarChartOptions"
-            [type]="radarChartType"
-          >
-          </canvas>
+    </div>
+
+    <!-- Performans Grafikleri -->
+    <div *ngIf="!isLoading && !error" class="charts mb-8">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Performans Grafikleri</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Bar Chart -->
+        <div class="chart-card bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-gray-600 mb-4">Konulara Göre Performans (Bar Grafiği)</h3>
+          <div style="height: 300px;">
+            <canvas baseChart [data]="barChartData" [options]="barChartOptions" [type]="barChartType"
+              [legend]="barChartLegend">
+            </canvas>
+          </div>
+        </div>
+        <!-- Radar Chart -->
+        <div class="chart-card bg-white p-6 rounded-lg shadow">
+          <h3 class="text-xl font-semibold text-gray-600 mb-4">Konulara Göre Yetkinlik (Radar Grafiği)</h3>
+          <div style="height: 300px;">
+            <canvas baseChart [data]="radarChartData" [options]="radarChartOptions" [type]="radarChartType">
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sorular Listesi -->
+    <div *ngIf="!isLoading && !error" class="questions-list">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Sorular</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div *ngFor="let question of questions; let i = index"
+          class="question-card bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
+          <!-- Soru Numarası -->
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ i + 1 }}. {{ question.questionText }}</h3>
+          <p class="text-sm text-gray-600 mb-4">Konu: <span class="font-medium">{{ question.topic }}</span></p>
+          <div *ngIf="question.questionType === 'MultipleChoice'" class="mb-4">
+            <p class="font-semibold text-gray-700 mb-2">Seçenekler:</p>
+            <ul class="list-disc list-inside space-y-1">
+              <li *ngFor="let option of question.options" [ngClass]="{
+                  'text-green-500 font-bold': option === question.correctAnswer,
+                  'text-red-500': option === question.userAnswer && option !== question.correctAnswer
+                }">
+                {{ option }}
+              </li>
+            </ul>
+          </div>
+          <div *ngIf="question.questionType === 'OpenEnded'" class="mb-4">
+            <p class="font-semibold text-gray-700 mb-2">Cevabınız:</p>
+            <p class="text-gray-700 mb-2">{{ question.userAnswer }}</p>
+            <p class="font-semibold text-gray-700 mb-2">Beklenen Cevap:</p>
+            <p class="text-gray-700">{{ question.correctAnswer }}</p>
+          </div>
+          <p class="font-semibold text-lg" [ngClass]="{
+              'text-green-300': isAnswerCorrect(question),
+              'text-red-300': !isAnswerCorrect(question)
+            }">
+            {{ isAnswerCorrect(question) ? 'Doğru' : 'Yanlış' }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal -->
+  <div *ngIf="showModal" class="modal fixed inset-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute inset-0 bg-gray-900 opacity-50" (click)="closeModal()"></div>
+    <div class="modal-container bg-white w-full md:max-w-4xl mx-auto rounded shadow-lg z-50 overflow-hidden">
+      <div class="modal-content p-6 flex flex-col">
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">{{ selectedTopic }}</p>
+          <div class="modal-close cursor-pointer z-50" (click)="closeModal()">
+            <svg class="fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+              viewBox="0 0 18 18">
+              <path
+                d="M14.53 3.47a.75.75 0 00-1.06 0L9 7.94 4.53 3.47a.75.75 0 10-1.06 1.06L7.94 9l-4.47 4.47a.75.75 0 101.06 1.06L9 10.06l4.47 4.47a.75.75 0 001.06-1.06L10.06 9l4.47-4.47a.75.75 0 000-1.06z">
+              </path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="modal-body grid grid-cols-1 md:grid-cols-2 gap-6 flex-1 overflow-hidden">
+          <!-- Eğitim Adımları -->
+          <div class="training-steps bg-gray-50 p-4 rounded-lg overflow-y-auto group relative">
+            <h3 class="text-xl font-semibold mb-2">Eğitim Adımları</h3>
+            <div *ngIf="isTrainingLoading" class="flex justify-center items-center h-full">
+              <p class="text-blue-300 text-xl font-semibold">Yükleniyor...</p>
+            </div>
+            <div *ngIf="!isTrainingLoading && trainingPlan">
+              <ul class="space-y-4">
+                <li *ngFor="let step of trainingPlan.steps" class="relative group">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <div class="step-number font-bold text-blue-400">Adım {{ step.stepNumber }}:</div>
+                      <div class="step-title font-semibold text-gray-800">{{ step.title }}</div>
+                      <div class="step-description text-gray-700">{{ step.description }}</div>
+                    </div>
+                    <!-- Yardım Al Butonu -->
+                    <button
+                    class="yardim-al-button"
+                    (click)="requestHelp(step)"
+                    [attr.aria-label]="'Adım ' + step.stepNumber + ' için Yardım Al'"
+                  >
+                    <!-- AI Tarzı Robot İkonu (Heroicons) -->
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                    </svg>
+                    <span class="tooltip-text">Yardım Al</span>
+                  </button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Sohbet Botu -->
+          <div class="chatbot bg-gray-50 p-4 rounded-lg flex flex-col overflow-hidden">
+            <h3 class="text-xl font-semibold mb-2">Sohbet Botu</h3>
+            <div class="chat-history flex-1 overflow-y-auto mb-4" #chatHistoryContainer>
+              <div *ngFor="let chat of chatHistory" class="mb-2 flex">
+                <div
+                  [ngClass]="{
+                    'ml-auto': chat.sender === 'user',
+                    'mr-auto': chat.sender === 'bot'
+                  }"
+                  class="max-w-full"
+                >
+                  <div
+                    [ngClass]="{
+                      'bg-blue-500 text-white': chat.sender === 'user',
+                      'bg-gray-200 text-gray-800': chat.sender === 'bot'
+                    }"
+                    class="p-3 rounded-xl break-words"
+                    style="word-break: break-word;"
+                  >
+                    <ng-container *ngIf="chat.sender === 'bot'">
+                      <markdown [data]="chat.message"></markdown>
+                    </ng-container>
+                    <ng-container *ngIf="chat.sender === 'user'">
+                      {{ chat.message }}
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Yükleme Animasyonu -->
+              <div *ngIf="isChatLoading" class="flex justify-start mb-2">
+                <div class="bg-gray-200 text-gray-800 p-3 rounded-xl inline-block">
+                  <div class="typing-indicator flex space-x-1">
+                    <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce"></div>
+                    <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-75"></div>
+                    <div class="dot bg-gray-500 w-2 h-2 rounded-full animate-bounce delay-150"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="chat-input mt-auto">
+              <div class="flex items-center space-x-2">
+                <input
+                  [(ngModel)]="userMessage"
+                  (keyup.enter)="sendMessage()"
+                  class="flex-1 px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Mesajınızı yazın..."
+                />
+                <button
+                  (click)="sendMessage()"
+                  class="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <!-- Gönder ikonu -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- /Sohbet Botu -->
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Sorular Listesi -->
-  <div *ngIf="!isLoading && !error" class="questions-list">
-    <h2 class="text-2xl font-semibold mb-4 text-blue-600">Sorular</h2>
-    <div
-      *ngFor="let question of questions"
-      class="question-card bg-white p-6 rounded-lg shadow hover:shadow-md transition-shadow mb-4"
-    >
-      <h3 class="text-lg font-medium text-gray-700 mb-2">{{ question.questionText }}</h3>
-      <p class="text-sm text-gray-600 mb-2">Konu: {{ question.topic }}</p>
-      <div *ngIf="question.questionType === 'MultipleChoice'">
-        <p class="font-semibold text-gray-700 mb-2">Seçenekler:</p>
-        <ul class="list-disc list-inside mb-2">
-          <li
-            *ngFor="let option of question.options"
-            [ngClass]="{
-              'text-green-500 font-bold': option === question.correctAnswer,
-              'text-red-500':
-                option === question.userAnswer && option !== question.correctAnswer
-            }"
-          >
-            {{ option }}
-          </li>
-        </ul>
-      </div>
-      <div *ngIf="question.questionType === 'OpenEnded'">
-        <p class="font-semibold text-gray-700 mb-2">Cevabınız:</p>
-        <p class="mb-2">{{ question.userAnswer }}</p>
-        <p class="font-semibold text-gray-700 mb-2">Beklenen Cevap:</p>
-        <p>{{ question.correctAnswer }}</p>
-      </div>
-      <p
-        class="font-semibold"
-        [ngClass]="{
-          'text-green-500': isAnswerCorrect(question),
-          'text-red-500': !isAnswerCorrect(question)
-        }"
+</div>
+
+<!-- Yardım Modalı -->
+<div *ngIf="showHelpModal" class="fixed inset-0 flex items-center justify-center z-50">
+  <div class="absolute inset-0 bg-gray-900 opacity-50" (click)="closeHelpModal()"></div>
+  <div class="bg-white rounded-lg p-6 z-50 max-w-md w-full">
+    <h2 class="text-xl font-semibold mb-4">Yardım Al - {{ helpStepTitle }}</h2>
+    <p class="mb-4">{{ helpStepDescription }}</p>
+    <textarea
+      [(ngModel)]="helpUserMessage"
+      class="w-full h-32 p-2 border rounded"
+      placeholder="Sorunuz..."
+    ></textarea>
+    <div class="flex justify-end mt-4">
+      <button
+        class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+        (click)="closeHelpModal()"
       >
-        {{ isAnswerCorrect(question) ? 'Doğru' : 'Yanlış' }}
-      </p>
+        İptal
+      </button>
+      <button
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+        (click)="submitHelpRequest()"
+        [disabled]="!helpUserMessage.trim()"
+      >
+        Gönder
+      </button>
     </div>
   </div>
 </div>

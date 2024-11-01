@@ -18,6 +18,7 @@ export class LoginComponent {
   };
 
   errorMessage: string = '';
+  showPassword: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -46,6 +47,10 @@ export class LoginComponent {
       err => {
         this.errorMessage = err.error.message || 'Bir hata oluştu.';
       });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
 }

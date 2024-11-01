@@ -258,78 +258,38 @@ namespace Backend.Application.Services
                 if (user == null)
                     return new ErrorResult("Kullanıcı bulunamadı.");
 
-                if (projects == null || projects.Count == 0)
-                {
-                    _projectRepository.RemoveRange(user.Projects);
-                    await _projectRepository.SaveChangesAsync();
-                }
+                _projectRepository.RemoveRange(user.Projects);
+                await _projectRepository.SaveChangesAsync();
 
                 foreach (var projectDto in projects)
                 {
-                    var existingProject = user.Projects.FirstOrDefault(p => p.Id == projectDto.Id);
-
-                    if (existingProject != null)
+                    var newProject = new Project
                     {
-                        // Güncelle
-                        existingProject.Title = projectDto.Title;
-                        existingProject.Description = projectDto.Description;
+                        Id = Guid.NewGuid(),
+                        Title = projectDto.Title,
+                        Description = projectDto.Description,
+                        UserId = userId,
+                        ProjectSkills = new List<ProjectSkill>()
+                    };
 
-                        // Projeye ait mevcut yetenekleri temizle
-                        foreach (var item in await _projectSkillRepository.GetAllAsync(x=> x.ProjectId == projectDto.Id))
-                        {
-                            _projectSkillRepository.Delete(item);
-                        }
-
-                        // Yeni yetenekleri ekle veya mevcutları kullan
-                        foreach (var skillDto in projectDto.Skills)
-                        {
-                            var skill = await _skillRepository.GetAsync(s => s.Name == skillDto.Name);
-                            if (skill == null)
-                            {
-                                skill = new Skill { Name = skillDto.Name };
-                                await _skillRepository.AddAsync(skill);
-                            }
-
-                            existingProject.ProjectSkills.Add(new ProjectSkill
-                            {
-                                ProjectId = existingProject.Id,
-                                SkillId = skill.Id
-                            });
-                        }
-
-                        _projectRepository.Update(existingProject);
-                    }
-                    else
+                    foreach (var skillDto in projectDto.Skills)
                     {
-                        // Ekle
-                        var newProject = new Project
+                        var skill = await _skillRepository.GetAsync(s => s.Name == skillDto.Name);
+                        if (skill == null)
                         {
-                            Id = Guid.NewGuid(),
-                            Title = projectDto.Title,
-                            Description = projectDto.Description,
-                            UserId = userId,
-                            ProjectSkills = new List<ProjectSkill>()
-                        };
-
-                        foreach (var skillDto in projectDto.Skills)
-                        {
-                            var skill = await _skillRepository.GetAsync(s => s.Name == skillDto.Name);
-                            if (skill == null)
-                            {
-                                skill = new Skill { Name = skillDto.Name };
-                                await _skillRepository.AddAsync(skill);
-                            }
-
-                            newProject.ProjectSkills.Add(new ProjectSkill
-                            {
-                                ProjectId = newProject.Id,
-                                SkillId = skill.Id
-                            });
+                            skill = new Skill { Name = skillDto.Name };
+                            await _skillRepository.AddAsync(skill);
                         }
 
-                        await _projectRepository.AddAsync(newProject);
-                        user.Projects.Add(newProject);
+                        newProject.ProjectSkills.Add(new ProjectSkill
+                        {
+                            ProjectId = newProject.Id,
+                            SkillId = skill.Id
+                        });
                     }
+
+                    await _projectRepository.AddAsync(newProject);
+                    user.Projects.Add(newProject);
                 }
 
                 _userRepository.Update(user);
@@ -352,33 +312,16 @@ namespace Backend.Application.Services
                     return new ErrorResult("Kullanıcı bulunamadı.");
 
                 // Boş gönderildiyse sil
-                if (companies == null || companies.Count == 0)
-                {
-                    _companyRepository.RemoveRange(user.Companies);
-                    await _companyRepository.SaveChangesAsync();
-                }
+                _companyRepository.RemoveRange(user.Companies);
+                await _companyRepository.SaveChangesAsync();
 
                 // Mevcut şirketleri güncelle veya yeni şirketleri ekle
                 foreach (var companyDto in companies)
                 {
-                    var existingCompany = user.Companies.FirstOrDefault(c => c.Id == companyDto.Id);
-                    if (existingCompany != null)
-                    {
-                        // Güncelle
-                        existingCompany.CompanyName = companyDto.CompanyName;
-                        existingCompany.Position = companyDto.Position;
-                        existingCompany.Description = companyDto.Description;
-
-                        _companyRepository.Update(existingCompany);
-                    }
-                    else
-                    {
-                        // Ekle
-                        var newCompany = _mapper.Map<Company>(companyDto);
-                        newCompany.UserId = userId;
-                        await _companyRepository.AddAsync(newCompany);
-                        user.Companies.Add(newCompany);
-                    }
+                    var newCompany = _mapper.Map<Company>(companyDto);
+                    newCompany.UserId = userId;
+                    await _companyRepository.AddAsync(newCompany);
+                    user.Companies.Add(newCompany);
                 }
 
                 _userRepository.Update(user);

@@ -30,7 +30,7 @@ public class AuthController : ControllerBase
         try
         {
             var user = await _userService.RegisterAsync(registerDto);
-            return Ok(new { message = "Kayıt başarılı.", user });
+            return Ok(user);
         }
         catch (Exception ex)
         {

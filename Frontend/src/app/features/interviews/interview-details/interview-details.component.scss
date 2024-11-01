@@ -1,34 +1,320 @@
+.interview-details-container {
+  background-color: #f9fafb; // Tailwind'ın gray-50 rengi
+  padding: 1.5rem; // p-6
+  min-height: 100vh;
+
+  .stat-card,
+  .overall-feedback,
+  .area-card,
+  .chart-card,
+  .question-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 0.5rem; // rounded-lg
+    background-color: #ffffff; // Beyaz arka plan
+    padding: 1.5rem; // p-6
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); // Daha yumuşak gölge
+
+    &:hover {
+      transform: translateY(-3px); // Hafif yükselme
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Daha yumuşak gölge
+    }
+  }
+
+  .stat-icon {
+    flex-shrink: 0;
+  }
+
+  .question-card {
+    h3 {
+      color: #4b5563; // Tailwind'ın gray-700 rengi
+      font-size: 1.5rem; // text-2xl
+      font-weight: 600; // font-semibold
+    }
+
+    p {
+      color: #6b7280; // Tailwind'ın gray-500 rengi
+      font-size: 0.875rem; // text-sm
+    }
+
+    .text-green-300,
+    .text-red-300,
+    .text-purple-300 {
+      font-weight: bold;
+    }
+  }
+
+  .learning-tree {
+    .vis-network-container {
+      width: 100%;
+      height: 600px; // İstediğiniz yüksekliği ayarlayabilirsiniz
+      border: 1px solid #e5e7eb; // Tailwind'ın gray-200 rengi
+      border-radius: 0.5rem;
+      background-color: #ffffff;
+    }
+
+    /* Vis Network spesifik stiller */
+    .vis-network-container {
+      display: block;
+    }
+  }
+
+  .areas-of-improvement {
+    .area-card {
+      h3 {
+        color: #4b5563;
+        font-size: 1.25rem; // text-xl
+        font-weight: 600; // font-semibold
+      }
+
+      p {
+        color: #6b7280;
+        font-size: 0.875rem; // text-sm
+      }
+
+      /* Soru Numarası Stili */
+      h3::before {
+        content: "";
+        display: inline-block;
+        width: 1.5em;
+        margin-left: -1.5em;
+        text-align: right;
+      }
+    }
+  }
+
+  .charts {
+    .chart-card {
+      h3 {
+        color: #4b5563; // Tailwind'ın gray-700 rengi
+        font-size: 1.25rem; // text-xl
+        font-weight: 600; // font-semibold
+      }
+
+      canvas {
+        width: 100% !important;
+        height: 300px !important;
+      }
+    }
+  }
+
+  /* Genel Kartlar için Yumuşak Gölge ve Hafif Kenarlık */
+  .stat-card,
+  .chart-card,
+  .question-card,
+  .area-card,
+  .overall-feedback {
+    border: 1px solid #e5e7eb; // Tailwind'ın gray-200 rengi
+  }
+
+  /* Responsive Düzenlemeler */
+  @media (max-width: 768px) {
+    .learning-tree .vis-network-container {
+      height: 400px;
+    }
+
+    .charts .chart-card canvas {
+      height: 250px !important;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .learning-tree .vis-network-container {
+      height: 300px;
+    }
+
+    .charts .chart-card canvas {
+      height: 200px !important;
+    }
+  }
+
+  /* Yardım Al Butonu ve Tooltip Stilleri */
+  .yardim-al-button {
+    position: relative; // Tooltip'in konumlanabilmesi için
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3b82f6; // Tailwind'ın blue-500 rengi
+    color: white;
+    padding: 0.5rem 1rem; // px-4 py-2 -> px-4 py-2 (daha iyi boşluk)
+    border-radius: 0.75rem; // rounded-lg
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+
+    &:hover {
+      background-color: #2563eb; // Tailwind'ın blue-600 rengi
+      transform: scale(1.05);
+    }
+
+    &:active {
+      background-color: #1e40af; // Tailwind'ın blue-700 rengi
+    }
+
+    /* Tooltip Stilleri */
+    .tooltip-text {
+      visibility: hidden;
+      width: max-content;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      text-align: center;
+      border-radius: 0.25rem;
+      padding: 0.25rem 0.5rem;
+      position: absolute;
+      bottom: 125%; // Butonun üstünde konumlandırma
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+
+      /* Tooltip Ok Stili */
+      &::after {
+        content: "";
+        position: absolute;
+        top: 100%; // Tooltip'in altına ok
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 5px;
+        border-style: solid;
+        border-color: rgba(0, 0, 0, 0.75) transparent transparent transparent;
+      }
+    }
+
+    &:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  .modal-container {
+    /* Mevcut stiller */
+    @apply bg-white w-full md:max-w-4xl mx-auto rounded shadow-lg z-50 overflow-hidden;
+
+    /* Yeni eklenen stiller */
+    max-height: 90vh; /* Modal'ın maksimum yüksekliği */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-content {
+    /* Mevcut stiller */
+    @apply p-6 flex flex-col;
+
+    /* Yeni eklenen stiller */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .modal-body {
+    /* Mevcut stiller */
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+
+    /* Yeni eklenen stiller */
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* İki sütunlu düzen */
+    gap: 1.5rem;
+    overflow: hidden;
+  }
+
+  .training-steps {
+    @apply bg-gray-50 p-4 rounded-lg overflow-y-auto;
+    /* max-height: 24rem; */ /* Eski: max-h-96 */
+  }
+
+  .chatbot {
+    @apply bg-gray-50 p-4 rounded-lg flex flex-col overflow-hidden;
+  }
+
+  .chat-history {
+    @apply flex-1 overflow-y-auto mb-4;
+
+    /* Kaydırma çubuğu stilleri */
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(107, 114, 128, 0.5);
+      border-radius: 3px;
+    }
+  }
+
+  .chat-input {
+    @apply mt-auto;
+  }
+
+  .p-3 {
+    word-wrap: break-word; // Uzun kelimelerin kırılması için
+    word-break: break-word; // Uzun kelimelerin kırılması için
+  }
+
+  .chat-message {
+    max-width: 75%;
+    padding: 12px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+    word-wrap: break-word; // Uzun kelimelerin kırılması için
+    word-break: break-word; // Uzun kelimelerin kırılması için
+
+    &.user {
+      background-color: #3b82f6; /* Mavi renk */
+      color: white;
+      margin-left: auto;
+    }
+
+    &.bot {
+      background-color: #e5e7eb; /* Gri renk */
+      color: #374151;
+      margin-right: auto;
+    }
+  }
+
+  .chat-input-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .chat-input-container input {
+    flex: 1;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    border: 1px solid #d1d5db;
+    outline: none;
+  }
+
+  .chat-input-container button {
+    background-color: #3b82f6;
+    color: white;
+    padding: 12px;
+    border-radius: 9999px;
+    margin-left: 8px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .chat-input-container button:hover {
+    background-color: #2563eb;
+  }
 
 
-.interview-details {
-  @apply bg-white p-6 rounded-lg shadow-lg;
-}
+  .yardim-al-button {
+    @apply flex items-center bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300;
+  }
 
-.charts {
-  @apply bg-white p-6 rounded-lg shadow-lg;
-}
+  .yardim-al-button i {
+    @apply mr-2;
+  }
 
-.chart-container {
-  @apply p-4 rounded-lg shadow;
-}
+  .yardim-al-button:active {
+    @apply bg-blue-700;
+  }
 
-.questions-analysis {
-  @apply bg-white p-6 rounded-lg shadow-lg;
-}
-
-table {
-  @apply min-w-full;
-}
-
-th,
-td {
-  @apply py-3 px-6;
-}
-
-th {
-  @apply bg-blue-500 text-white;
-}
-
-tr:hover {
-  @apply bg-gray-50;
+  .tooltip {
+    @apply absolute bg-gray-700 text-white text-xs rounded py-1 px-2 mt-1 hidden group-hover:block;
+  }
 }

@@ -40,6 +40,7 @@ export class RegisterComponent {
         })
       )
       .subscribe(response => {
+        console.log(response)
         if (response?.success) {
           this.router.navigate(['/auth/login']);
         }else {
