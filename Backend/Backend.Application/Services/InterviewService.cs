@@ -303,7 +303,6 @@ namespace Backend.Application.Services
                         Importance = learningItem.Importance
                     };
 
-                    // Eğer Alt Konular varsa, bunları da kaydet
                     if (learningItem.SubTopics != null && learningItem.SubTopics.Any())
                     {
                         foreach (var subTopic in learningItem.SubTopics)

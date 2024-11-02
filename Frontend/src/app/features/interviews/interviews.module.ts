@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MarkdownModule } from 'ngx-markdown';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MarkdownModule } from 'ngx-markdown';
     MatDialogModule,
     MatInputModule,
     MarkdownModule.forRoot(),
+    NgxGraphModule
   ]
 })
 export class InterviewsModule { }

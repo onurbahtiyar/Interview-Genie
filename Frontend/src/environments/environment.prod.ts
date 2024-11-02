@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://interviewgenie.dev/api',
+    apiUrl: 'https://api.onurbahtiyar.dev/api',
   };

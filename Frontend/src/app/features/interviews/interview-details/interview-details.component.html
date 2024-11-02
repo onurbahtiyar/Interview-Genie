@@ -1,5 +1,5 @@
 <div class="interview-details-container p-6 min-h-screen bg-gray-50">
-  
+
   <!-- Yükleniyor ve Hata Mesajları -->
   <div *ngIf="isLoading" class="loading flex justify-center items-center h-full">
     <p class="text-blue-300 text-xl font-semibold">Yükleniyor...</p>
@@ -78,54 +78,96 @@
       </div>
     </div>
 
+
+    <!-- Emoji Legenda -->
+    <div class="emoji-legend mb-6 p-4 bg-yellow-100 rounded-lg">
+      <h3 class="text-2xl font-semibold mb-2">Emoji Açıklamaları</h3>
+      <div class="flex flex-wrap space-x-8">
+        <!-- Öncelik Emojileri -->
+        <div class="flex items-center mb-2">
+          <span class="text-xl">📌</span>
+          <span class="ml-2 text-gray-700">Yüksek Öncelik</span>
+        </div>
+        <div class="flex items-center mb-2">
+          <span class="text-xl">⚡️</span>
+          <span class="ml-2 text-gray-700">Orta Öncelik</span>
+        </div>
+        <div class="flex items-center mb-2">
+          <span class="text-xl">✅</span>
+          <span class="ml-2 text-gray-700">Düşük Öncelik</span>
+        </div>
+        <!-- Zorluk Emojileri -->
+        <div class="flex items-center mb-2">
+          <span class="text-xl">😃</span>
+          <span class="ml-2 text-gray-700">Kolay</span>
+        </div>
+        <div class="flex items-center mb-2">
+          <span class="text-xl">😐</span>
+          <span class="ml-2 text-gray-700">Orta</span>
+        </div>
+        <div class="flex items-center mb-2">
+          <span class="text-xl">😓</span>
+          <span class="ml-2 text-gray-700">Zor</span>
+        </div>
+      </div>
+    </div>
+
     <!-- Öğrenme Ağacı -->
-    <div *ngIf="parsedProfileComment && parsedProfileComment.LearningTree.length > 0" class="learning-tree mb-8">
-      <h2 class="text-3xl font-bold mb-6 text-blue-400">Öğrenme Ağacı</h2>
-      <ul class="ml-4">
-        <li *ngFor="let node of parsedProfileComment.LearningTree" class="mb-4">
-          <div class="flex items-center">
-            <span class="font-semibold cursor-pointer text-blue-600 hover:underline"
-              (click)="openTrainingModal(node.Topic)">
-              {{ node.Topic }}
-            </span>
-            <span class="ml-2 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
-                'bg-green-100 text-green-800': node.DifficultyLevel === 'Kolay',
-                'bg-yellow-100 text-yellow-800': node.DifficultyLevel === 'Orta',
-                'bg-red-100 text-red-800': node.DifficultyLevel === 'Zor'
-              }">
-              {{ node.DifficultyLevel }}
-            </span>
-            <span class="ml-1 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
-                'bg-blue-100 text-blue-800': node.Importance === 'Düşük',
-                'bg-yellow-100 text-yellow-800': node.Importance === 'Orta',
-                'bg-purple-100 text-purple-800': node.Importance === 'Yüksek'
-              }">
-              {{ node.Importance }}
-            </span>
-          </div>
-          <!-- Alt Konular -->
-          <ul *ngIf="node.SubTopics && node.SubTopics.length > 0" class="ml-6 mt-2 border-l-2 border-gray-200 pl-4">
-            <li *ngFor="let sub of node.SubTopics" class="mb-2">
-              <div class="flex items-center">
-                <span class="font-semibold cursor-pointer text-blue-600 hover:underline"
-                  (click)="openTrainingModal(sub.Topic)">
-                  {{ sub.Topic }}
-                </span>
-                <span class="ml-2 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
-                    'bg-green-100 text-green-800': sub.DifficultyLevel === 'Kolay',
-                    'bg-yellow-100 text-yellow-800': sub.DifficultyLevel === 'Orta',
-                    'bg-red-100 text-red-800': sub.DifficultyLevel === 'Zor'
-                  }">
-                  {{ sub.DifficultyLevel }}
-                </span>
-                <span class="ml-1 px-2 py-1 rounded text-xs font-semibold" [ngClass]="{
-                    'bg-blue-100 text-blue-800': sub.Importance === 'Düşük',
-                    'bg-yellow-100 text-yellow-800': sub.Importance === 'Orta',
-                    'bg-purple-100 text-purple-800': sub.Importance === 'Yüksek'
-                  }">
-                  {{ sub.Importance }}
+    <div class="tree-diagram">
+      <h2 class="text-3xl font-bold mb-6 text-blue-400">Eğitim Şeması</h2>
+      <ul>
+        <li *ngFor="let node of parsedProfileComment?.LearningTree">
+          <div class="node" (click)="openTrainingModal(node.Topic)">
+            <span class="node-title">{{ node.Topic }}</span>
+            <div class="node-labels">
+              <div class="label-group">
+                <span class="label difficulty" [ngClass]="getDifficultyClass(node.DifficultyLevel)">
+                  {{ getDifficultyEmoji(node.DifficultyLevel) }}
                 </span>
               </div>
+              <div class="label-group">
+                <span class="label importance" [ngClass]="getImportanceClass(node.Importance)">
+                  {{ getImportanceEmoji(node.Importance) }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <ul *ngIf="node.SubTopics && node.SubTopics.length > 0">
+            <li *ngFor="let sub of node.SubTopics">
+              <div class="node" (click)="openTrainingModal(sub.Topic)">
+                <span class="node-title">{{ sub.Topic }}</span>
+                <div class="node-labels">
+                  <div class="label-group">
+                    <span class="label difficulty" [ngClass]="getDifficultyClass(sub.DifficultyLevel)">
+                      {{ getDifficultyEmoji(sub.DifficultyLevel) }}
+                    </span>
+                  </div>
+                  <div class="label-group">
+                    <span class="label importance" [ngClass]="getImportanceClass(sub.Importance)">
+                      {{ getImportanceEmoji(sub.Importance) }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <ul *ngIf="sub.SubTopics && sub.SubTopics.length > 0">
+                <li *ngFor="let subSub of sub.SubTopics">
+                  <div class="node" (click)="openTrainingModal(subSub.Topic)">
+                    <span class="node-title">{{ subSub.Topic }}</span>
+                    <div class="node-labels">
+                      <div class="label-group">
+                        <span class="label difficulty" [ngClass]="getDifficultyClass(subSub.DifficultyLevel)">
+                          {{ getDifficultyEmoji(subSub.DifficultyLevel) }}
+                        </span>
+                      </div>
+                      <div class="label-group">
+                        <span class="label importance" [ngClass]="getImportanceClass(subSub.Importance)">
+                          {{ getImportanceEmoji(subSub.Importance) }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </li>
           </ul>
         </li>
@@ -143,9 +185,9 @@
     <!-- Gelişim Alanları -->
     <div *ngIf="parsedProfileComment" class="areas-of-improvement mb-8">
       <h2 class="text-3xl font-bold mb-6 text-blue-400">Gelişim Alanları</h2>
-      <div class="space-y-6">
+      <div class="flex flex-wrap -mx-4 gap-x-6">
         <div *ngFor="let area of parsedProfileComment.AreasOfImprovement"
-          class="area-card bg-white p-6 rounded-lg shadow">
+          class="area-card bg-white p-6 rounded-lg shadow col-lg-6 w-full lg:w-[calc(50%-12px)] px-4 mb-6">
           <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ area.Topic }}</h3>
           <p class="text-gray-700">{{ area.Feedback }}</p>
         </div>
@@ -175,44 +217,83 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Sorular Listesi -->
-    <div *ngIf="!isLoading && !error" class="questions-list">
-      <h2 class="text-3xl font-bold mb-6 text-blue-400">Sorular</h2>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div *ngFor="let question of questions; let i = index"
-          class="question-card bg-white p-6 rounded-lg shadow hover:shadow-lg transition-shadow duration-300">
-          <!-- Soru Numarası -->
-          <h3 class="text-2xl font-semibold text-gray-800 mb-2">{{ i + 1 }}. {{ question.questionText }}</h3>
-          <p class="text-sm text-gray-600 mb-4">Konu: <span class="font-medium">{{ question.topic }}</span></p>
-          <div *ngIf="question.questionType === 'MultipleChoice'" class="mb-4">
-            <p class="font-semibold text-gray-700 mb-2">Seçenekler:</p>
-            <ul class="list-disc list-inside space-y-1">
-              <li *ngFor="let option of question.options" [ngClass]="{
-                  'text-green-500 font-bold': option === question.correctAnswer,
-                  'text-red-500': option === question.userAnswer && option !== question.correctAnswer
+  <!-- Sorular Listesi -->
+  <div *ngIf="!isLoading && !error" class="questions-list p-4">
+    <h2 class="text-2xl font-semibold mb-4 text-blue-500 flex items-center">
+      📚 Sorular
+    </h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div *ngFor="let question of questions; let i = index"
+        class="question-card p-4 border rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200">
+        <!-- Soru Başlığı ve Konu -->
+        <h3 class="text-lg font-medium text-gray-800 mb-1">
+          {{ i + 1 }}. {{ question.questionText }}
+        </h3>
+        <p class="text-sm text-gray-600 mb-2 flex items-center">
+          <span class="mr-1">📌</span>{{ question.topic }}
+        </p>
+
+        <!-- Yatay Çizgi -->
+        <hr class="my-2 border-gray-300" />
+
+        <!-- Soru Tipine Göre İçerik -->
+        <ng-container [ngSwitch]="question.questionType">
+          <!-- Çoktan Seçmeli Sorular -->
+          <div *ngSwitchCase="'MultipleChoice'" class="mb-2">
+            <ul class="list-none space-y-1 text-sm">
+              <li *ngFor="let option of question.options" class="flex items-center">
+                <span class="mr-2 w-4 text-center">
+                  <ng-container *ngIf="option === question.correctAnswer">✔️</ng-container>
+                  <ng-container
+                    *ngIf="option === question.userAnswer && option !== question.correctAnswer">❌</ng-container>
+                </span>
+                <span [ngClass]="{
+                  'text-green-600 font-medium': option === question.correctAnswer,
+                  'text-red-600': option === question.userAnswer && option !== question.correctAnswer
                 }">
-                {{ option }}
+                  {{ option }}
+                </span>
               </li>
             </ul>
           </div>
-          <div *ngIf="question.questionType === 'OpenEnded'" class="mb-4">
-            <p class="font-semibold text-gray-700 mb-2">Cevabınız:</p>
+
+          <!-- Açık Uçlu Sorular -->
+          <div *ngSwitchCase="'OpenEnded'" class="mb-2">
+            <div class="flex items-center mb-1">
+              <span class="mr-2">💬</span>
+              <span class="text-sm font-semibold text-gray-700">Cevabınız:</span>
+            </div>
             <p class="text-gray-700 mb-2">{{ question.userAnswer }}</p>
-            <p class="font-semibold text-gray-700 mb-2">Beklenen Cevap:</p>
+            <div class="flex items-center mb-1">
+              <span class="mr-2">🔍</span>
+              <span class="text-sm font-semibold text-gray-700">Beklenen Cevap:</span>
+            </div>
             <p class="text-gray-700">{{ question.correctAnswer }}</p>
           </div>
-          <p class="font-semibold text-lg" [ngClass]="{
-              'text-green-300': isAnswerCorrect(question),
-              'text-red-300': !isAnswerCorrect(question)
-            }">
+        </ng-container>
+
+        <!-- Yatay Çizgi -->
+        <hr class="my-2 border-gray-300" />
+
+        <!-- Sonuç -->
+        <div class="flex items-center mt-2">
+          <span class="mr-2 w-4 text-center">
+            <ng-container *ngIf="isAnswerCorrect(question); else incorrect">✔️</ng-container>
+            <ng-template #incorrect>❌</ng-template>
+          </span>
+          <p class="text-sm font-semibold" [ngClass]="{
+            'text-green-500': isAnswerCorrect(question),
+            'text-red-500': !isAnswerCorrect(question)
+          }">
             {{ isAnswerCorrect(question) ? 'Doğru' : 'Yanlış' }}
           </p>
         </div>
       </div>
     </div>
-
   </div>
+
 
   <!-- Modal -->
   <div *ngIf="showModal" class="modal fixed inset-0 flex items-center justify-center z-50">
@@ -248,17 +329,16 @@
                       <div class="step-description text-gray-700">{{ step.description }}</div>
                     </div>
                     <!-- Yardım Al Butonu -->
-                    <button
-                    class="yardim-al-button"
-                    (click)="requestHelp(step)"
-                    [attr.aria-label]="'Adım ' + step.stepNumber + ' için Yardım Al'"
-                  >
-                    <!-- AI Tarzı Robot İkonu (Heroicons) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
-                    </svg>
-                    <span class="tooltip-text">Yardım Al</span>
-                  </button>
+                    <button class="yardim-al-button" (click)="requestHelp(step)"
+                      [attr.aria-label]="'Adım ' + step.stepNumber + ' için Yardım Al'">
+                      <!-- AI Tarzı Robot İkonu (Heroicons) -->
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" />
+                      </svg>
+                      <span class="tooltip-text">Yardım Al</span>
+                    </button>
                   </div>
                 </li>
               </ul>
@@ -270,21 +350,14 @@
             <h3 class="text-xl font-semibold mb-2">Sohbet Botu</h3>
             <div class="chat-history flex-1 overflow-y-auto mb-4" #chatHistoryContainer>
               <div *ngFor="let chat of chatHistory" class="mb-2 flex">
-                <div
-                  [ngClass]="{
+                <div [ngClass]="{
                     'ml-auto': chat.sender === 'user',
                     'mr-auto': chat.sender === 'bot'
-                  }"
-                  class="max-w-full"
-                >
-                  <div
-                    [ngClass]="{
+                  }" class="max-w-full">
+                  <div [ngClass]="{
                       'bg-blue-500 text-white': chat.sender === 'user',
                       'bg-gray-200 text-gray-800': chat.sender === 'bot'
-                    }"
-                    class="p-3 rounded-xl break-words"
-                    style="word-break: break-word;"
-                  >
+                    }" class="p-3 rounded-xl break-words" style="word-break: break-word;">
                     <ng-container *ngIf="chat.sender === 'bot'">
                       <markdown [data]="chat.message"></markdown>
                     </ng-container>
@@ -308,18 +381,14 @@
             </div>
             <div class="chat-input mt-auto">
               <div class="flex items-center space-x-2">
-                <input
-                  [(ngModel)]="userMessage"
-                  (keyup.enter)="sendMessage()"
+                <input [(ngModel)]="userMessage" (keyup.enter)="sendMessage()"
                   class="flex-1 px-3 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Mesajınızı yazın..."
-                />
-                <button
-                  (click)="sendMessage()"
-                  class="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
+                  placeholder="Mesajınızı yazın..." />
+                <button (click)="sendMessage()"
+                  class="bg-blue-500 text-white p-3 rounded-full hover:bg-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500">
                   <!-- Gönder ikonu -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-45" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -341,23 +410,13 @@
   <div class="bg-white rounded-lg p-6 z-50 max-w-md w-full">
     <h2 class="text-xl font-semibold mb-4">Yardım Al - {{ helpStepTitle }}</h2>
     <p class="mb-4">{{ helpStepDescription }}</p>
-    <textarea
-      [(ngModel)]="helpUserMessage"
-      class="w-full h-32 p-2 border rounded"
-      placeholder="Sorunuz..."
-    ></textarea>
+    <textarea [(ngModel)]="helpUserMessage" class="w-full h-32 p-2 border rounded" placeholder="Sorunuz..."></textarea>
     <div class="flex justify-end mt-4">
-      <button
-        class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
-        (click)="closeHelpModal()"
-      >
+      <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2" (click)="closeHelpModal()">
         İptal
       </button>
-      <button
-        class="bg-blue-500 text-white px-4 py-2 rounded"
-        (click)="submitHelpRequest()"
-        [disabled]="!helpUserMessage.trim()"
-      >
+      <button class="bg-blue-500 text-white px-4 py-2 rounded" (click)="submitHelpRequest()"
+        [disabled]="!helpUserMessage.trim()">
         Gönder
       </button>
     </div>

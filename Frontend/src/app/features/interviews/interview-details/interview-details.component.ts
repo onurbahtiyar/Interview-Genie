@@ -152,12 +152,12 @@ export class InterviewDetailsComponent implements OnInit {
         {
           data: correctData,
           label: 'Doğru Cevaplar',
-          backgroundColor: 'rgba(72, 187, 120, 0.6)', // Yumuşak yeşil
+          backgroundColor: 'rgba(72, 187, 120, 0.6)',
         },
         {
           data: incorrectData,
           label: 'Yanlış Cevaplar',
-          backgroundColor: 'rgba(248, 113, 113, 0.6)', // Yumuşak kırmızı
+          backgroundColor: 'rgba(248, 113, 113, 0.6)',
         },
       ],
     };
@@ -184,7 +184,7 @@ export class InterviewDetailsComponent implements OnInit {
         {
           data: proficiencyData,
           label: 'Yetkinlik (%)',
-          backgroundColor: 'rgba(96, 165, 250, 0.2)', // Yumuşak mavi
+          backgroundColor: 'rgba(96, 165, 250, 0.2)',
           borderColor: 'rgba(96, 165, 250, 1)',
           pointBackgroundColor: 'rgba(96, 165, 250, 1)',
         },
@@ -329,6 +329,65 @@ export class InterviewDetailsComponent implements OnInit {
       } else {
         clearInterval(interval);
       }
-    }, 20); // Yazma hızını burada ayarlayabilirsiniz
+    }, 20);
   }
+  toggleNode(node: LearningTreeDto): void {
+    node.expanded = !node.expanded;
+  }
+
+  getDifficultyClass(level: string): string {
+    switch(level.toLowerCase()) {
+      case 'kolay':
+        return 'easy';
+      case 'orta':
+        return 'medium';
+      case 'zor':
+        return 'hard';
+      default:
+        return '';
+    }
+  }
+  
+  // Öncelik seviyesine göre sınıf döndüren fonksiyon
+  getImportanceClass(importance: string): string {
+    switch(importance.toLowerCase()) {
+      case 'düşük':
+        return 'low';
+      case 'orta':
+        return 'medium';
+      case 'yüksek':
+        return 'high';
+      default:
+        return '';
+    }
+  }
+
+  // Zorluk seviyesine göre emoji döndüren fonksiyon
+  getDifficultyEmoji(level: string): string {
+    switch(level.toLowerCase()) {
+      case 'kolay':
+        return '😃';
+      case 'orta':
+        return '😐';
+      case 'zor':
+        return '😓';
+      default:
+        return '';
+    }
+  }
+
+  // Öncelik seviyesine göre emoji döndüren fonksiyon
+  getImportanceEmoji(importance: string): string {
+    switch(importance.toLowerCase()) {
+      case 'düşük':
+        return '✅';
+      case 'orta':
+        return '⚡️';
+      case 'yüksek':
+        return '📌';
+      default:
+        return '';
+    }
+  }
+  
 }

@@ -2,8 +2,16 @@
   <div class="bg-white rounded-2xl shadow-md overflow-hidden w-full max-w-md">
     <div class="p-8">
       <!-- Logo veya Başlık -->
-      <div class="flex justify-center mb-6">
-        <img src="assets/logo.png" alt="BTK Logo" class="h-24 w-auto">
+      <div class="flex flex-col items-center mb-6">
+        <!-- AI İkonu -->
+        <div class="bg-indigo-600 p-3 rounded-full mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m0 14v1m8-8h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707" />
+          </svg>
+        </div>
+        <!-- Başlık -->
+        <h1 class="text-4xl font-extrabold text-indigo-600">Interview Genie</h1>
+        <p class="text-gray-600 mt-2">Akıllı Görüşme Yardımcınız</p>
       </div>
       
       <form (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
@@ -121,7 +129,7 @@
 
     <!-- Dekoratif Elemanlar -->
     <div class="bg-indigo-600 p-4 text-center">
-      <p class="text-white text-sm">&copy; 2024 Dummy.</p>
+      <p class="text-white text-sm">&copy; 2024 Interview Genie.</p>
     </div>
   </div>
 </div>

@@ -105,11 +105,14 @@ export class InterviewComponent implements OnInit {
   }
 
   endInterview(): void {
+    this.isLoading = true; // Yükleniyor durumunu aktif et
     this.interviewService.endInterview(this.interviewId).subscribe({
       next: (result: EndInterviewResponse) => {
+        this.isLoading = false; // Yükleniyor durumunu pasif et (opsiyonel)
         this.router.navigate(['/interviews', this.interviewId, 'result'], { state: { result } });
       },
       error: (err) => {
+        this.isLoading = false; // Yükleniyor durumunu pasif et
         this.error = err.error?.error || 'Görüşme sonlandırılamadı.';
       }
     });

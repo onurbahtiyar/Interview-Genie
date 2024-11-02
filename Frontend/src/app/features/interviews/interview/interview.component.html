@@ -7,7 +7,7 @@
   </div>
 
   <!-- Hata Mesajı -->
-  <div *ngIf="error" class="text-red-500 text-center mb-4">
+  <div *ngIf="error && !isLoading" class="text-red-500 text-center mb-4">
     {{ error }}
   </div>
 
@@ -19,7 +19,7 @@
 
     <!-- Çoktan Seçmeli Soru -->
     <div *ngIf="currentQuestion.questionType === 'MultipleChoice' && currentQuestion.options.length > 0" class="multiple-choice">
-      <div *ngFor="let option of currentQuestion.options; let  i = index" class="flex items-center mb-3">
+      <div *ngFor="let option of currentQuestion.options; let i = index" class="flex items-center mb-3">
         <input 
           type="radio" 
           name="option" 

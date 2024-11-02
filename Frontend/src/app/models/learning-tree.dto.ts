@@ -3,4 +3,5 @@ export interface LearningTreeDto{
     DifficultyLevel: string;
     Importance: string;
     SubTopics?: LearningTreeDto[];
+    expanded?: boolean;
 }

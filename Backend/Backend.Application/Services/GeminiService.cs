@@ -395,7 +395,6 @@ public class GeminiService : IGeminiService
 
     public async Task<InterviewAnalysisDto> AnalyzeInterviewWithProfileAsync(ProfileDto profile, InterviewSession interview)
     {
-        // Serialize profile and interview data
         var profileJson = JsonSerializer.Serialize(profile);
         var interviewJson = JsonSerializer.Serialize(new
         {
@@ -412,7 +411,6 @@ public class GeminiService : IGeminiService
             }
         });
 
-        // Compute correct and incorrect counts per topic
         var answersByTopic = interview.InterviewQuestions
             .GroupBy(q => q.Topic)
             .Select(g => new
@@ -425,7 +423,6 @@ public class GeminiService : IGeminiService
 
         var answersByTopicJson = JsonSerializer.Serialize(answersByTopic);
 
-        // Adjusted prompt
         var prompt = $"Kullanıcının profili, tamamladığı mülakat ve her konu için doğru ve yanlış cevap sayıları aşağıda verilmiştir. " +
                      $"Profiline ve mülakat performansına dayanarak, kullanıcının gelişebileceği alanları belirle ve hiyerarşik bir öğrenme ağacı (learning tree) oluştur. " +
                      $"Öğrenme ağacında, ana konuların altında ilgili alt konuları listele. Her konunun zorluk derecesini ve kullanıcının bu konuyu öğrenmesinin ne kadar önemli olduğunu belirt. " +
