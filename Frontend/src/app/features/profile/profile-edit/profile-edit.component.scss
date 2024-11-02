@@ -1,0 +1,36 @@
+/* Sekmelerin kaydırılabilir olmasını sağlama */
+::ng-deep .mat-tab-group {
+    overflow-x: auto;
+  }
+  
+  ::ng-deep .mat-tab-labels {
+    flex-wrap: nowrap;
+  }
+  
+  ::ng-deep .mat-tab-label {
+    flex: 1 0 auto;
+  }
+  
+  /* Kartların ve Formların mobilde tam genişlikte olmasını sağlama */
+  @media (max-width: 640px) {
+    .profile-edit-container {
+      padding: 1rem;
+    }
+  
+    mat-card {
+      padding: 1rem;
+    }
+  
+    mat-form-field {
+      width: 100%;
+    }
+  
+    .mat-tab-label {
+      min-width: 100px;
+    }
+  }
+  
+  /* Yatay taşmaları önleme */
+  .profile-edit-container {
+    overflow-x: hidden;
+  }

@@ -32,7 +32,7 @@ export class ProfileEditComponent implements OnInit {
     private profileService: ProfileService,
     private router: Router,
     private fb: FormBuilder,
-    private snackBar: MatSnackBar // MatSnackBar servisini ekleyin
+    private snackBar: MatSnackBar
   ) {
     this.skillsForm = this.fb.group({
       skills: [[], Validators.required],

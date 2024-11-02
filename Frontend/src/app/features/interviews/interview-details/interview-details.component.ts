@@ -329,7 +329,7 @@ export class InterviewDetailsComponent implements OnInit {
       } else {
         clearInterval(interval);
       }
-    }, 20);
+    }, 1);
   }
   toggleNode(node: LearningTreeDto): void {
     node.expanded = !node.expanded;

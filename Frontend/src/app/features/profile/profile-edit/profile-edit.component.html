@@ -1,9 +1,6 @@
-<!-- src/app/features/profile/profile-edit/profile-edit.component.html -->
-<div class="profile-edit-container p-6 min-h-screen bg-gray-100">
-  <h1 class="text-4xl font-bold mb-8 text-center text-blue-700">Profil Düzenle</h1>
-
+<div class="profile-edit-container p-4 sm:p-6 min-h-screen bg-gray-50">
   <!-- Yükleniyor Durumu -->
-  <div *ngIf="isLoading" class="flex justify-center items-center">
+  <div *ngIf="isLoading" class="flex justify-center items-center h-full">
     <mat-spinner></mat-spinner>
   </div>
 
@@ -13,10 +10,9 @@
   </div>
 
   <!-- İçerik -->
-  <div *ngIf="!isLoading && !error">
+  <div *ngIf="!isLoading && !error" class="max-w-4xl mx-auto">
     <!-- Sekmeler -->
-    <mat-tab-group>
-
+    <mat-tab-group class="bg-white shadow-md rounded-lg overflow-hidden">
       <!-- Yetenekler Sekmesi -->
       <mat-tab label="Yetenekler">
         <form [formGroup]="skillsForm" (ngSubmit)="saveSkills()" class="mt-4">

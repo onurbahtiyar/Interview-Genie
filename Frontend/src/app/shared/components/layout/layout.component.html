@@ -1,56 +1,108 @@
-<div class="flex h-screen bg-gray-100">
+<div class="flex min-h-screen bg-gray-100">
   <!-- Sidebar -->
-  <aside :class="[
-      'fixed inset-y-0 left-0 z-30 w-64 bg-white shadow-lg transform transition-transform duration-300 ease-in-out',
+  <aside
+      [ngClass]="[
+      'bg-white shadow-lg transform transition-transform duration-300 ease-in-out w-64 z-30',
       isSidebarOpen ? 'translate-x-0' : '-translate-x-full',
-      'md:relative md:translate-x-0'
-    ]" aria-label="Sidebar">
+      'absolute inset-y-0 left-0 md:relative md:translate-x-0 md:inset-0'
+    ]"
+    aria-label="Sidebar"
+  >
     <!-- Logo Bölümü -->
     <div class="p-6 flex items-center justify-center border-b">
       <h1 class="text-2xl font-bold text-indigo-600">Interview Genie</h1>
     </div>
     <!-- Navigasyon Menüsü -->
     <nav class="flex-1 px-2 py-4 space-y-2">
-      <a routerLink="/interviews/dashboard" routerLinkActive="bg-blue-600 text-white"
+      <!-- Ana Sayfa -->
+      <a
+        routerLink="/interviews/dashboard"
+        routerLinkActive="bg-blue-600 text-white"
         class="group flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
-        (click)="closeSidebar()">
-        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
+        (click)="closeSidebar()"
+      >
+        <svg
+          class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <!-- Dashboard Icon -->
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6"
+          />
         </svg>
         Ana Sayfa
       </a>
-      <a routerLink="/interviews/create-interview" routerLinkActive="bg-blue-600 text-white"
+      <!-- Mülakat Oluştur -->
+      <a
+        routerLink="/interviews/create-interview"
+        routerLinkActive="bg-blue-600 text-white"
         class="group flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
-        (click)="closeSidebar()">
-        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
+        (click)="closeSidebar()"
+      >
+        <svg
+          class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <!-- Create Icon -->
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
         Mülakat Oluştur
       </a>
-      <a routerLink="/profile/view" routerLinkActive="bg-blue-600 text-white"
+      <!-- Profilim -->
+      <a
+        routerLink="/profile/view"
+        routerLinkActive="bg-blue-600 text-white"
         class="group flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
-        (click)="closeSidebar()">
-        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
+        (click)="closeSidebar()"
+      >
+        <svg
+          class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <!-- Profile Icon -->
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M5.121 17.804A4.992 4.992 0 015 16V5a2 2 0 012-2h10a2 2 0 012 2v11c0 .743-.201 1.442-.555 2.048M15 14h.01M12 14h.01M9 14h.01M12 20.25c-1.95 0-3.729-.632-5.121-1.696" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M5.121 17.804A4.992 4.992 0 015 16V5a2 2 0 012-2h10a2 2 0 012 2v11c0 .743-.201 1.442-.555 2.048M15 14h.01M12 14h.01M9 14h.01M12 20.25c-1.95 0-3.729-.632-5.121-1.696"
+          />
         </svg>
         Profilim
       </a>
-      <a routerLink="/profile/edit" routerLinkActive="bg-blue-600 text-white"
+      <!-- Profil Düzenle -->
+      <a
+        routerLink="/profile/edit"
+        routerLinkActive="bg-blue-600 text-white"
         class="group flex items-center px-4 py-2 text-sm font-medium rounded-md text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
-        (click)="closeSidebar()">
-        <svg class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
+        (click)="closeSidebar()"
+      >
+        <svg
+          class="mr-3 h-6 w-6 text-gray-400 group-hover:text-white"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <!-- Edit Icon -->
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9" />
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M16.5 3.5a2.121 2.121 0 013 3L7 19H4v-3L16.5 3.5z" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16.5 3.5a2.121 2.121 0 013 3L7 19H4v-3L16.5 3.5z"
+          />
         </svg>
         Profil Düzenle
       </a>
@@ -58,8 +110,12 @@
   </aside>
 
   <!-- Overlay -->
-  <div *ngIf="isSidebarOpen" class="fixed inset-0 z-20 bg-black opacity-50 md:hidden" (click)="toggleSidebar()"
-    aria-hidden="true"></div>
+  <div
+    *ngIf="isSidebarOpen"
+    class="fixed inset-0 z-20 bg-black opacity-50 md:hidden"
+    (click)="toggleSidebar()"
+    aria-hidden="true"
+  ></div>
 
   <!-- Main Content -->
   <div class="flex-1 flex flex-col">
@@ -67,13 +123,22 @@
     <header class="bg-white shadow-md p-4 flex justify-between items-center">
       <div class="flex items-center">
         <!-- Hamburger Menü (Sadece Mobilde Görünür) -->
-        <button class="mr-4 text-gray-500 focus:outline-none md:hidden" (click)="toggleSidebar()"
-          aria-label="Toggle sidebar">
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button
+          class="mr-4 text-gray-500 focus:outline-none md:hidden"
+          (click)="toggleSidebar()"
+          aria-label="Toggle sidebar"
+        >
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <h1 class="text-2xl font-semibold text-gray-700">{{ pageTitle }}</h1> <!-- Dinamik Başlık -->
+        <h1 class="text-2xl font-semibold text-gray-700">{{ pageTitle }}</h1>
       </div>
       <!-- Profil Bilgisi ve Dropdown -->
       <div class="flex items-center space-x-4 relative">
@@ -83,22 +148,45 @@
           <p class="text-xs text-gray-500">{{ user.email }}</p>
         </div>
         <!-- Kullanıcı Profil Simgesi -->
-        <button id="dropdown-button"
+        <button
+          id="dropdown-button"
           class="h-10 w-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          (click)="toggleDropdown()" aria-haspopup="true" [attr.aria-expanded]="isDropdownOpen" aria-label="User menu">
+          (click)="toggleDropdown()"
+          aria-haspopup="true"
+          [attr.aria-expanded]="isDropdownOpen"
+          aria-label="User menu"
+        >
           {{ user.username | slice: 0:2 | uppercase }}
         </button>
         <!-- Dropdown Menü -->
-        <div *ngIf="isDropdownOpen" id="user-dropdown"
-          class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 animate-fade-in" role="menu"
-          aria-orientation="vertical" aria-labelledby="dropdown-button">
-          <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
-            (click)="logout()" role="menuitem">
-            <svg class="h-5 w-5 mr-2 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-              stroke="currentColor">
+        <div
+          *ngIf="isDropdownOpen"
+          id="user-dropdown"
+          class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-50 animate-fade-in"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="dropdown-button"
+        >
+          <a
+            href="#"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+            (click)="logout()"
+            role="menuitem"
+          >
+            <svg
+              class="h-5 w-5 mr-2 text-gray-400"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <!-- Logout Icon -->
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
             </svg>
             Çıkış Yap
           </a>
@@ -110,5 +198,32 @@
     <main class="p-6 overflow-auto bg-gray-50 flex-1">
       <router-outlet></router-outlet>
     </main>
+
+    <footer class="bg-white shadow-md p-6 flex flex-col md:flex-row justify-between items-center text-base">
+      <p class="text-gray-700 mb-4 md:mb-0 flex items-center">
+        <span class="emoji text-2xl mr-2">🚀</span> Developed for the BTK Hackathon.
+      </p>
+      <div class="flex space-x-6 social-icons">
+        <a href="https://github.com/onurbahtiyar" target="_blank" class="text-gray-700 hover:text-gray-900" aria-label="GitHub">
+          <span class="sr-only">GitHub</span>
+          <!-- GitHub SVG -->
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 0C5.37 0 0 5.373 0 12c0 5.302 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.727-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.744.082-.729.082-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.997.108-.775.42-1.305.763-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.31.467-2.381 1.235-3.221-.123-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.3 1.23a11.48 11.48 0 013.003-.404c1.02.005 2.045.138 3.003.404 2.29-1.552 3.297-1.23 3.297-1.23.654 1.653.242 2.874.12 3.176.77.84 1.233 1.911 1.233 3.221 0 4.61-2.807 5.623-5.48 5.921.431.372.816 1.102.816 2.222v3.293c0 .32.216.694.825.576C20.565 21.796 24 17.298 24 12c0-6.627-5.373-12-12-12z"
+            />
+          </svg>
+        </a>
+        <a href="https://linkedin.com/in/onur-bahtiyar" target="_blank" class="text-gray-700 hover:text-gray-900" aria-label="LinkedIn">
+          <span class="sr-only">LinkedIn</span>
+          <!-- LinkedIn SVG -->
+          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.761 0 5-2.238 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.3c-.966 0-1.5-.677-1.5-1.522 0-.861.548-1.522 1.534-1.522s1.5.661 1.5 1.522c0 .845-.534 1.522-1.534 1.522zm13.5 10.3h-3v-4.816c0-1.213-.433-2.042-1.519-2.042-.828 0-1.321.562-1.537 1.105-.079.192-.099.461-.099.731v5.022h-3s.039-8.146 0-9h3v1.277c.396-.612 1.104-1.482 2.684-1.482 1.961 0 3.432 1.28 3.432 4.036v5.169z"
+            />
+          </svg>
+        </a>  
+      </div>
+    </footer>
+    
   </div>
 </div>

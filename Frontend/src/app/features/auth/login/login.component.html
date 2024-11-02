@@ -11,7 +11,6 @@
         </div>
         <!-- Başlık -->
         <h1 class="text-4xl font-extrabold text-indigo-600">Interview Genie</h1>
-        <p class="text-gray-600 mt-2">Akıllı Görüşme Yardımcınız</p>
       </div>
       
       <form (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
@@ -39,7 +38,7 @@
           <label for="loginPassword" class="block text-gray-700 mb-2">Şifre</label>
           <input
             id="loginPassword"
-            type="password"
+            [type]="showPassword ? 'text' : 'password'"
             [(ngModel)]="loginData.password"
             name="password"
             required
@@ -53,25 +52,21 @@
           </div>
         </div>
 
-        <!-- Beni Hatırla ve Şifreyi Unuttum -->
-        <div class="flex items-center justify-between mb-6">
-          <label class="flex items-center text-gray-700">
-            <input type="checkbox" class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out">
-            <span class="ml-2 text-sm">Beni Hatırla</span>
-          </label>
-          <a routerLink="/auth/forgot-password" class="text-sm text-indigo-600 hover:underline">
-            Şifrenizi mi Unuttunuz?
-          </a>
-        </div>
-
         <!-- Giriş Butonu -->
         <button
           type="submit"
-          [disabled]="loginForm.invalid"
-          class="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-300 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center"
+          [disabled]="loginForm.invalid || isLoading"
+          class="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors duration-300 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 flex items-center justify-center relative"
         >
+          <!-- Spinner -->
+          <div *ngIf="isLoading" class="absolute left-4">
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+            </svg>
+          </div>
           <!-- Giriş İkonu -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg *ngIf="!isLoading" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
           </svg>
           Giriş Yap
@@ -84,16 +79,11 @@
           Hesabınız yok mu? Kayıt Ol
         </a>
       </div>
-
-      <!-- Hata Mesajı -->
-      <div *ngIf="errorMessage" class="mt-4 text-center text-red-500">
-        {{ errorMessage }}
-      </div>
     </div>
 
     <!-- Dekoratif Elemanlar -->
     <div class="bg-indigo-600 p-4 text-center">
-      <p class="text-white text-sm">&copy; 2024 Interview Genie.</p>
+      <p class="text-white text-sm"><span class="emoji">🚀</span> Developed for the BTK Hackathon.</p>
     </div>
   </div>
 </div>

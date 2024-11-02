@@ -1,8 +1,61 @@
 @keyframes fade-in {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
   animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Footer Stilleri */
+footer {
+  font-size: 1rem;
+  background-color: #f9fafb;
+  padding: 1rem;
+}
+
+footer a {
+  transition: color 0.3s ease;
+}
+
+footer svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+footer a:hover svg {
+  transform: scale(1.1);
+}
+
+footer p {
+  display: flex;
+  align-items: center;
+}
+
+footer .emoji {
+  font-size: 1.5rem;
+  margin-right: 0.5rem;
+}
+
+/* Sosyal Medya İkonları */
+footer .social-icons a:hover {
+  color: #1d4ed8; 
+}
+
+@media (max-width: 768px) {
+  footer {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  footer p {
+    margin-bottom: 1rem;
+  }
 }
