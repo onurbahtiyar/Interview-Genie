@@ -17,6 +17,8 @@ using Backend.API.Middlewares;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +44,7 @@ builder.Services.AddHttpClient<IGeminiService, GeminiService>();
 // Security Services
 builder.Services.AddSingleton<IAESEncryptionService, AESEncryptionService>();
 
-// AutoMapper - Sadece API projesinde ekleyin
+// AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 // JWT Authentication
@@ -80,6 +82,32 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Rate Limiting Configuration
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("GlobalRateLimit", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(partitionKey: "Global", factory: partition =>
+            new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 100, // Dakikada maksimum 100 istek
+                Window = TimeSpan.FromMinutes(1),
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 0
+            }));
+
+    options.AddPolicy("IpRateLimit", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 50,
+                Window = TimeSpan.FromMinutes(1),
+                QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                QueueLimit = 0
+            }));
+});
+
+// Controllers
 builder.Services.AddControllers(options =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -141,10 +169,10 @@ app.UseMiddleware<ExceptionMiddleware>();
 #endif
 
 app.UseCors("CorsPolicy");
-
 app.UseAuthentication();
+app.UseRateLimiter();
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapControllers().RequireRateLimiting("GlobalRateLimit");
 
 app.Run();
