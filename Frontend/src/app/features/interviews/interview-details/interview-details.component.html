@@ -134,7 +134,7 @@
           </div>
           <ul *ngIf="node.SubTopics && node.SubTopics.length > 0">
             <li *ngFor="let sub of node.SubTopics">
-              <div class="node" (click)="openTrainingModal(sub.Topic)">
+              <div class="node" (click)="openTrainingModal(node.Topic + ' > ' + sub.Topic)">
                 <span class="node-title">{{ sub.Topic }}</span>
                 <div class="node-labels">
                   <div class="label-group">
@@ -151,7 +151,7 @@
               </div>
               <ul *ngIf="sub.SubTopics && sub.SubTopics.length > 0">
                 <li *ngFor="let subSub of sub.SubTopics">
-                  <div class="node" (click)="openTrainingModal(subSub.Topic)">
+                  <div class="node" (click)="openTrainingModal(node.Topic + ' > ' + sub.Topic + ' > ' + subSub.Topic)">
                     <span class="node-title">{{ subSub.Topic }}</span>
                     <div class="node-labels">
                       <div class="label-group">
